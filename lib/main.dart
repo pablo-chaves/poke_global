@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poke_global/core/theme/app_theme.dart';
 import 'core/routes/app_router.dart';
 
 void main() async {
@@ -9,16 +10,6 @@ void main() async {
 class PokeGlobal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final light = ThemeData(
-      brightness: Brightness.light,
-      // colorScheme: const ColorScheme.light(
-      //   primary: Color(0xFF00D1B2),
-      //   secondary: Color(0xFF7C4DFF),
-      // ),
-      // scaffoldBackgroundColor: const Color(0xFF0F1115),
-      useMaterial3: true,
-    );
-
     return MaterialApp.router(
       routerConfig: AppRouter.router,
       title: 'PokeGlobal',
@@ -26,7 +17,7 @@ class PokeGlobal extends StatelessWidget {
       //   Locale('es'),
       // ],
       // debugShowCheckedModeBanner: false,
-      theme: light,
+      theme: AppTheme.lightTheme,
     );
   }
 }

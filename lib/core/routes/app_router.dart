@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poke_global/features/onboarding/presentation/screens/onboarding_screen.dart';
 // import 'package:poke_global/features/onboarding/presentation/screens/splash_screen.dart';

@@ -8,18 +8,29 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(child: Text('Bienvenido a poke global')),
-          SizedBox(height: 20),
-          ElevatedButton(
-            child: Text('pokemon onboarding'),
-            onPressed: () {
-              context.goNamed(RouteNames.onboarding);
-            },
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    'Todos los Pokémon en un solo lugar',
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text('pokemon onboarding'),
+              onPressed: () {
+                context.goNamed(RouteNames.onboarding);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
