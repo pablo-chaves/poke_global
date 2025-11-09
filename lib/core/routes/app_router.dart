@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:poke_global/core/widgets/main_navigation.dart';
 import 'package:poke_global/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:poke_global/features/pokemon/presentation/screens/pokedex_screen.dart';
 // import 'package:poke_global/features/onboarding/presentation/screens/splash_screen.dart';
 // import 'package:poke_global/features/pokemon/presentation/screens/pokedex_screen.dart';
 // import 'package:poke_global/features/pokemon/presentation/screens/pokemon_detail_screen.dart';
@@ -17,10 +19,14 @@ class AppRouter {
         path: RouteNames.onboarding,
         builder: (context, state) => const OnboardingScreen(),
       ),
-      // GoRoute(
-      //   path: RouteNames.pokedex,
-      //   builder: (context, state) => const PokedexScreen(),
-      // ),
+      GoRoute(
+        path: RouteNames.home,
+        builder: (context, state) => const MainNavigation(),
+      ),
+      GoRoute(
+        path: RouteNames.pokedex,
+        builder: (context, state) => const PokedexScreen(),
+      ),
       // GoRoute(
       //   path: RouteNames.pokemonDetail,
       //   builder: (context, state) {

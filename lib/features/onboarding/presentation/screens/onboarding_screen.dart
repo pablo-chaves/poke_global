@@ -29,7 +29,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Padding(
           padding: AppSpacing.paddingHorizontalMD,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Expanded(
                 child: CarouselIntro(
@@ -59,7 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 CustomButton(
                   text: 'Empecemos',
                   onPressed: () {
-                    context.goNamed(RouteNames.pokedex);
+                    context.go(RouteNames.home);
                   },
                 ),
               AppSpacing.verticalSpaceXS,

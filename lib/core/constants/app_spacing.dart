@@ -50,19 +50,19 @@ class AppSpacing {
   static const Widget horizontalSpaceXXL = SizedBox(width: xxl);
 
   // Border Radius
-  static const double radiusXS = 4.0;
-  static const double radiusSM = 8.0;
-  static const double radiusMD = 12.0;
-  static const double radiusLG = 16.0;
-  static const double radiusXL = 20.0;
-  static const double radiusCircle = 999.0;
+  static const double radiusSizeXS = 4.0;
+  static const double radiusSizeSM = 8.0;
+  static const double radiusSizeMD = 12.0;
+  static const double radiusSizeLG = 16.0;
+  static const double radiusSizeXL = 20.0;
+  static const double radiusSizeCircle = 999.0;
 
-  static const BorderRadius borderRadiusXS = BorderRadius.all(Radius.circular(radiusXS));
-  static const BorderRadius borderRadiusSM = BorderRadius.all(Radius.circular(radiusSM));
-  static const BorderRadius borderRadiusMD = BorderRadius.all(Radius.circular(radiusMD));
-  static const BorderRadius borderRadiusLG = BorderRadius.all(Radius.circular(radiusLG));
-  static const BorderRadius borderRadiusXL = BorderRadius.all(Radius.circular(radiusXL));
-  static const BorderRadius borderRadiusCircle = BorderRadius.all(Radius.circular(radiusCircle));
+  static const Radius radiusXS = Radius.circular(radiusSizeXS);
+  static const Radius radiusSM = Radius.circular(radiusSizeSM);
+  static const Radius radiusMD = Radius.circular(radiusSizeMD);
+  static const Radius radiusLG = Radius.circular(radiusSizeLG);
+  static const Radius radiusXL = Radius.circular(radiusSizeXL);
+  static const Radius radiusCircle = Radius.circular(radiusSizeCircle);
 
   // Tamaños de iconos
   static const double iconSizeXS = 16.0;

@@ -39,7 +39,7 @@ class CustomButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
-            borderRadius: AppSpacing.borderRadiusCircle,
+            borderRadius: BorderRadius.all(AppSpacing.radiusCircle),
           ),
           backgroundColor: colorFill,
         ),

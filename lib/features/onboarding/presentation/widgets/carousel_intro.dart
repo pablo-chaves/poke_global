@@ -32,8 +32,7 @@ class _CarouselIntroState extends State<CarouselIntro> {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        SizedBox(
-          height: 500,
+        Expanded(
           child: PageView(
             controller: widget.pageController,
             onPageChanged: (int page) {

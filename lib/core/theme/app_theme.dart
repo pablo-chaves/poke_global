@@ -23,7 +23,7 @@ class AppTheme {
       ),
       
       // Colores base
-      scaffoldBackgroundColor: AppColors.background,
+      scaffoldBackgroundColor: AppColors.backgroundLight,
       
       // AppBar
       appBarTheme: const AppBarTheme(
@@ -264,7 +264,7 @@ class AppTheme {
       
       // Bottom Navigation Bar
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.backgroundLight,
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textLight,
         selectedIconTheme: IconThemeData(size: 28),

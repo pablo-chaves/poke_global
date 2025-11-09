@@ -6,8 +6,9 @@ class AppColors {
   // Colores principales
   static const Color primary = Color(0xFF1E88E5);
   static const Color secondary = Color(0xFFEEEEEE);
-  static const Color background = Color(0xFFFFFFFF);
+  static const Color backgroundLight = Color(0xFFFEFEFE);
   static const Color surface = Color(0xFF9E9E9E);
+  static const Color shadow = Color.fromRGBO(0, 0, 0, 0.2);
   
   // Colores de texto
   static const Color textPrimary = Color(0xFF121212);
