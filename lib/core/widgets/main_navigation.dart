@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:poke_global/core/constants/app_colors.dart';
 import 'package:poke_global/core/constants/app_spacing.dart';
+import 'package:poke_global/features/favorites/presentation/screens/favorites_screen.dart';
 import 'package:poke_global/features/pokemon/presentation/screens/pokedex_screen.dart';
+import 'package:poke_global/features/profile/presentation/screens/profile_screen.dart';
+import 'package:poke_global/features/regions/presentation/screens/regions_screen.dart';
 
 /// Widget principal con BottomNavigationBar
 class MainNavigation extends StatefulWidget {
@@ -17,7 +20,9 @@ class _MainNavigationState extends State<MainNavigation> {
   // Lista de pantallas
   final List<Widget> _screens = [
     const PokedexScreen(),
-    // const FavoritesScreen(),
+    const RegionsScreen(),
+    const FavoritesScreen(),
+    const ProfileScreen(),
   ];
 
   @override

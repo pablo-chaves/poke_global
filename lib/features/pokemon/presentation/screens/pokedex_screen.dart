@@ -10,7 +10,7 @@ class PokedexScreen extends StatefulWidget {
 }
 
 class _PokedexScreenState extends State<PokedexScreen> {
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
