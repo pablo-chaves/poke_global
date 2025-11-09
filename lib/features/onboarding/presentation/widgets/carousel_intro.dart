@@ -20,12 +20,6 @@ class _CarouselIntroState extends State<CarouselIntro> {
   int _currentPage = 0;
 
   @override
-  void dispose() {
-    widget.pageController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,

@@ -18,8 +18,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,7 +50,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       curve: Curves.easeInOut,
                     );
                     setState(() {
-                      _pageController.page == 1;
+                      _currentPage = 1;
                     });
                   },
                 )

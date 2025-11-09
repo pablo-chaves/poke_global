@@ -1,38 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poke_global/core/constants/app_spacing.dart';
 import 'package:poke_global/core/widgets/error_view.dart';
+import 'package:poke_global/features/pokemon/presentation/providers/pokemon_list_provider.dart';
 
-class PokedexScreen extends StatefulWidget {
+class PokedexScreen extends ConsumerStatefulWidget {
   const PokedexScreen({Key? key}) : super(key: key);
 
   @override
-  State<PokedexScreen> createState() => _PokedexScreenState();
+  ConsumerState<PokedexScreen> createState() => _PokedexScreenState();
 }
 
-class _PokedexScreenState extends State<PokedexScreen> {
+class _PokedexScreenState extends ConsumerState<PokedexScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.9) {
+      final notifier = ref.read(pokemonListProvider.notifier);
+      if (notifier.hasMore) {
+        notifier.loadMore();
+      }
+    }
+  }
+
+  Widget errorWidget({required Function onRetry}) => SafeArea(
+    child: Padding(
+      padding: AppSpacing.paddingHorizontalMD,
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ErrorView(
+              title: 'Algo salió mal...',
+              message:
+                  'No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.',
+              onRetry: () => onRetry(),
+            ),
+            AppSpacing.verticalSpaceXS,
+          ],
+        ),
+      ),
+    ),
+  );
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: AppSpacing.paddingHorizontalMD,
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ErrorView(
-                title: 'Algo salió mal...',
-                message: 'No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.',
-                onRetry: () {
-                  // Lógica para reintentar la carga
-                },
-              ),
-              AppSpacing.verticalSpaceXS,
-            ],
-          ),
-        ),
+    final pokemonListAsync = ref.watch(pokemonListProvider);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Pokédex')),
+      body: pokemonListAsync.when(
+        data: (final pokemonList) {
+          if (pokemonList.isEmpty) {
+            return errorWidget(
+              onRetry: () async {
+                await ref.read(pokemonListProvider.notifier).refresh();
+              },
+            );
+          }
+
+          return ListView.builder(
+            controller: _scrollController,
+            itemCount: pokemonList.length,
+            itemBuilder: (context, index) {
+              final pokemon = pokemonList[index];
+              return ListTile(title: Text(pokemon.name));
+            },
+          );
+        },
+        loading: () {
+          return const Center(child: CircularProgressIndicator());
+        },
+        error: (error, stackTrace) {
+          return errorWidget(
+            onRetry: () async {
+              await ref.read(pokemonListProvider.notifier).refresh();
+            },
+          );
+        },
       ),
     );
   }
