@@ -18,6 +18,14 @@ class PokeGlobal extends StatelessWidget {
       // ],
       // debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
+      builder: (BuildContext context, Widget? child) {
+        final media = MediaQuery.of(context);
+        final clampedScale = media.textScaleFactor.clamp(0.8, 1.2).toDouble();
+        return MediaQuery(
+          data: media.copyWith(textScaleFactor: clampedScale),
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
   }
 }

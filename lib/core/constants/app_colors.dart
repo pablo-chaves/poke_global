@@ -5,14 +5,15 @@ class AppColors {
 
   // Colores principales
   static const Color primary = Color(0xFF1E88E5);
-  static const Color secondary = Color(0xFF666666);
+  static const Color secondary = Color(0xFFEEEEEE);
   static const Color background = Color(0xFFFFFFFF);
-  static const Color surface = Color(0xFFF5F5F5);
+  static const Color surface = Color(0xFF9E9E9E);
   
   // Colores de texto
   static const Color textPrimary = Color(0xFF121212);
   static const Color textSecondary = Color(0xFF424242);
   static const Color textLight = Color(0xFF9E9E9E);
+  static const Color textWhite = Color(0xFFFFFFFF);
   
   // Colores de estado
   static const Color success = Color(0xFF4CAF50);

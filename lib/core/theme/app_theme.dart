@@ -43,35 +43,35 @@ class AppTheme {
       textTheme: const TextTheme(
         // Títulos
         displayLarge: TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
+          fontSize: 28,
+          fontWeight: FontWeight.w500,
           color: AppColors.textPrimary,
         ),
         displayMedium: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
+          fontSize: 26,
+          fontWeight: FontWeight.w500,
           color: AppColors.textPrimary,
         ),
         displaySmall: TextStyle(
           fontSize: 24,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
           color: AppColors.textPrimary,
         ),
         
         // Encabezados
         headlineLarge: TextStyle(
           fontSize: 22,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
           color: AppColors.textPrimary,
         ),
         headlineMedium: TextStyle(
           fontSize: 20,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
           color: AppColors.textPrimary,
         ),
         headlineSmall: TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
           color: AppColors.textPrimary,
         ),
         
