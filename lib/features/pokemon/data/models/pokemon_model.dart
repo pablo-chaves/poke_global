@@ -44,7 +44,7 @@ abstract class PokemonDetailModel with _$PokemonDetailModel {
 }
 
 @freezed
-abstract class PokemonTypeModel with _$PokemonTypeModel {
+sealed class PokemonTypeModel with _$PokemonTypeModel {
   const factory PokemonTypeModel({
     required int slot,
     required TypeInfoModel type,
@@ -55,7 +55,7 @@ abstract class PokemonTypeModel with _$PokemonTypeModel {
 }
 
 @freezed
-abstract class TypeInfoModel with _$TypeInfoModel {
+sealed class TypeInfoModel with _$TypeInfoModel {
   const factory TypeInfoModel({
     required String name,
   }) = _TypeInfoModel;
@@ -65,7 +65,7 @@ abstract class TypeInfoModel with _$TypeInfoModel {
 }
 
 @freezed
-abstract class PokemonStatModel with _$PokemonStatModel {
+sealed class PokemonStatModel with _$PokemonStatModel {
   const factory PokemonStatModel({
     @JsonKey(name: 'base_stat') required int baseStat,
     required StatInfoModel stat,
@@ -76,7 +76,7 @@ abstract class PokemonStatModel with _$PokemonStatModel {
 }
 
 @freezed
-abstract class StatInfoModel with _$StatInfoModel {
+sealed class StatInfoModel with _$StatInfoModel {
   const factory StatInfoModel({
     required String name,
   }) = _StatInfoModel;
@@ -86,7 +86,7 @@ abstract class StatInfoModel with _$StatInfoModel {
 }
 
 @freezed
-abstract class PokemonSpritesModel with _$PokemonSpritesModel {
+sealed class PokemonSpritesModel with _$PokemonSpritesModel {
   const factory PokemonSpritesModel({
     @JsonKey(name: 'front_default') String? frontDefault,
     PokemonSpritesOtherModel? other,
@@ -97,7 +97,7 @@ abstract class PokemonSpritesModel with _$PokemonSpritesModel {
 }
 
 @freezed
-abstract class PokemonSpritesOtherModel with _$PokemonSpritesOtherModel {
+sealed class PokemonSpritesOtherModel with _$PokemonSpritesOtherModel {
   const factory PokemonSpritesOtherModel({
     @JsonKey(name: 'official-artwork') OfficialArtworkModel? officialArtwork,
   }) = _PokemonSpritesOtherModel;
@@ -107,7 +107,7 @@ abstract class PokemonSpritesOtherModel with _$PokemonSpritesOtherModel {
 }
 
 @freezed
-abstract class OfficialArtworkModel with _$OfficialArtworkModel {
+sealed class OfficialArtworkModel with _$OfficialArtworkModel {
   const factory OfficialArtworkModel({
     @JsonKey(name: 'front_default') String? frontDefault,
   }) = _OfficialArtworkModel;
