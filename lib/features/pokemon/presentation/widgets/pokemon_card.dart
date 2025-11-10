@@ -35,52 +35,7 @@ class _PokemonCardState extends ConsumerState<PokemonCard> with AutomaticKeepAli
     isFavorite = false; // favoritesAsync.value?.contains(name) ?? false;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    
-    final pokemonDetailAsync = ref.watch(pokemonDetailProvider(widget.name));
-    return pokemonDetailAsync.when(
-      data: (detail) {
-        final types = detail.types.map((t) => t.type.name).toList();
-        final backgroundCard =
-            AppColors.pokemonLightTypes[types[0].toLowerCase()] ??
-            AppColors.pokemonLightTypes['normal']!;
-
-        final backgroundDark =
-            AppColors.pokemonTypes[types[0].toLowerCase()] ??
-            AppColors.pokemonTypes['normal']!;
-
-        // return _buildLoadingCard(context, id, imageUrl, isFavorite, ref);
-        return _buildCard(
-          context: context,
-          id: id,
-          imageUrl: imageUrl,
-          backgroundCard: backgroundCard,
-          backgroundDark: backgroundDark,
-          types: types,
-          isFavorite: isFavorite,
-          ref: ref,
-        );
-      },
-      loading: () => _buildCard(
-        context: context,
-        id: id,
-        imageUrl: imageUrl,
-        isFavorite: isFavorite,
-        ref: ref,
-      ),
-      error: (_, __) => _buildCard(
-        context: context,
-        id: id,
-        imageUrl: imageUrl,
-        isFavorite: isFavorite,
-        ref: ref,
-      ),
-    );
-  }
-
-  Widget _buildCard({
+    Widget _buildCard({
     required BuildContext context,
     required String id,
     required String imageUrl,
@@ -253,5 +208,49 @@ class _PokemonCardState extends ConsumerState<PokemonCard> with AutomaticKeepAli
   String _capitalize(String text) {
     if (text.isEmpty) return text;
     return text[0].toUpperCase() + text.substring(1);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    
+    final pokemonDetailAsync = ref.watch(pokemonDetailProvider(widget.name));
+    return pokemonDetailAsync.when(
+      data: (detail) {
+        final types = detail.types.map((t) => t.type.name).toList();
+        final backgroundCard =
+            AppColors.pokemonLightTypes[types[0].toLowerCase()] ??
+            AppColors.pokemonLightTypes['normal']!;
+
+        final backgroundDark =
+            AppColors.pokemonTypes[types[0].toLowerCase()] ??
+            AppColors.pokemonTypes['normal']!;
+
+        return _buildCard(
+          context: context,
+          id: id,
+          imageUrl: imageUrl,
+          backgroundCard: backgroundCard,
+          backgroundDark: backgroundDark,
+          types: types,
+          isFavorite: isFavorite,
+          ref: ref,
+        );
+      },
+      loading: () => _buildCard(
+        context: context,
+        id: id,
+        imageUrl: imageUrl,
+        isFavorite: isFavorite,
+        ref: ref,
+      ),
+      error: (_, __) => _buildCard(
+        context: context,
+        id: id,
+        imageUrl: imageUrl,
+        isFavorite: isFavorite,
+        ref: ref,
+      ),
+    );
   }
 }

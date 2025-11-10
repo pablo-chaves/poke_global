@@ -15,11 +15,13 @@ const pokemonRemoteDataSourceProvider = PokemonRemoteDataSourceProvider._();
 final class PokemonRemoteDataSourceProvider
     extends
         $FunctionalProvider<
+          AsyncValue<PokemonRemoteDataSource>,
           PokemonRemoteDataSource,
-          PokemonRemoteDataSource,
-          PokemonRemoteDataSource
+          FutureOr<PokemonRemoteDataSource>
         >
-    with $Provider<PokemonRemoteDataSource> {
+    with
+        $FutureModifier<PokemonRemoteDataSource>,
+        $FutureProvider<PokemonRemoteDataSource> {
   const PokemonRemoteDataSourceProvider._()
     : super(
         from: null,
@@ -36,26 +38,18 @@ final class PokemonRemoteDataSourceProvider
 
   @$internal
   @override
-  $ProviderElement<PokemonRemoteDataSource> $createElement(
+  $FutureProviderElement<PokemonRemoteDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  ) => $FutureProviderElement(pointer);
 
   @override
-  PokemonRemoteDataSource create(Ref ref) {
+  FutureOr<PokemonRemoteDataSource> create(Ref ref) {
     return pokemonRemoteDataSource(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PokemonRemoteDataSource value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<PokemonRemoteDataSource>(value),
-    );
   }
 }
 
 String _$pokemonRemoteDataSourceHash() =>
-    r'ed69f89fd05e3f1d4a117577c3ae54fb88a052fc';
+    r'8cb6f788d79b38dcb3468e27a5346f4506649c49';
 
 /// Provider del Repository
 
@@ -67,11 +61,13 @@ const pokemonRepositoryProvider = PokemonRepositoryProvider._();
 final class PokemonRepositoryProvider
     extends
         $FunctionalProvider<
+          AsyncValue<PokemonRepository>,
           PokemonRepository,
-          PokemonRepository,
-          PokemonRepository
+          FutureOr<PokemonRepository>
         >
-    with $Provider<PokemonRepository> {
+    with
+        $FutureModifier<PokemonRepository>,
+        $FutureProvider<PokemonRepository> {
   /// Provider del Repository
   const PokemonRepositoryProvider._()
     : super(
@@ -89,22 +85,14 @@ final class PokemonRepositoryProvider
 
   @$internal
   @override
-  $ProviderElement<PokemonRepository> $createElement(
+  $FutureProviderElement<PokemonRepository> $createElement(
     $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  ) => $FutureProviderElement(pointer);
 
   @override
-  PokemonRepository create(Ref ref) {
+  FutureOr<PokemonRepository> create(Ref ref) {
     return pokemonRepository(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PokemonRepository value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<PokemonRepository>(value),
-    );
   }
 }
 
-String _$pokemonRepositoryHash() => r'1ccf32abb96e0634c2fd92eeee55765391189258';
+String _$pokemonRepositoryHash() => r'00171918c6599f6cf9eb048f19d83d44d5502fc6';

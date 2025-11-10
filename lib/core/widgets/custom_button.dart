@@ -6,13 +6,13 @@ enum ButtonType { primary, secondary }
 
 class CustomButton extends StatelessWidget {
   CustomButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
     this.colorFill,
     this.isLoading = false,
     this.type = ButtonType.primary,
-  }) : super(key: key);
+  });
 
   VoidCallback onPressed;
   String text;

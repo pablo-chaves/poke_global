@@ -7,9 +7,10 @@ part 'pokemon_list_provider.g.dart';
 @riverpod
 class PokemonList extends _$PokemonList {
   int _offset = 0;
-  final int _limit = 20;
+  final int _limit = 1328;
   List<PokemonModel> _allPokemon = [];
   bool _hasMore = true;
+  bool _isLoading = false;
 
   @override
   Future<List<PokemonModel>> build() async {
@@ -19,14 +20,13 @@ class PokemonList extends _$PokemonList {
   Future<List<PokemonModel>> _fetchPokemon() async {
     if (!_hasMore) return _allPokemon;
 
-    final repository = ref.read(pokemonRepositoryProvider);
-    
+    final repository = await ref.read(pokemonRepositoryProvider.future);
+
     try {
       final newPokemon = await repository.getPokemonList(
         offset: _offset,
         limit: _limit,
       );
-
       if (newPokemon.isEmpty || newPokemon.length < _limit) {
         _hasMore = false;
       }
@@ -39,11 +39,13 @@ class PokemonList extends _$PokemonList {
   }
 
   Future<void> loadMore() async {
-    if (!_hasMore) return;
+    if (!_hasMore || _isLoading) return;
 
+    _isLoading = true;
     _offset += _limit;
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => _fetchPokemon());
+    _isLoading = false;
   }
 
   Future<void> refresh() async {
@@ -54,4 +56,5 @@ class PokemonList extends _$PokemonList {
   }
 
   bool get hasMore => _hasMore;
+  bool get isLoading => _isLoading;
 }

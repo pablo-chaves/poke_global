@@ -1,35 +1,83 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PokemonRemoteDataSource {
   final Dio dio;
+  final SharedPreferences prefs;
 
-  PokemonRemoteDataSource({required this.dio});
+  PokemonRemoteDataSource({required this.dio, required this.prefs});
 
   Future<Map<String, dynamic>> getPokemonList({
     int offset = 0,
     int limit = 20,
   }) async {
     try {
+      final localData = await _getLocalPokemonList(
+        offset: offset,
+        limit: limit,
+      );
+      if (localData != null) return localData;
+
       final response = await dio.get(
         'pokemon',
-        queryParameters: {
-          'offset': offset,
-          'limit': limit,
-        },
+        queryParameters: {'offset': offset, 'limit': limit},
       );
 
+      _saveLocalPokemonList(response.data);
+
       return response.data as Map<String, dynamic>;
-    }catch (e) {
+    } catch (e) {
       throw Exception('Error inesperado: $e');
     }
   }
 
   Future<Map<String, dynamic>> getPokemonDetail(String name) async {
     try {
+      final localData = await _getLocalPokemonDetail(name);
+      if (localData != null) return localData;
+
       final response = await dio.get('pokemon/$name');
+
+      _saveLocalPokemonDetail(name, response.data);
       return response.data as Map<String, dynamic>;
     } catch (e) {
       throw Exception('Error inesperado: $e');
     }
+  }
+
+  Future<Map<String, dynamic>?> _getLocalPokemonList({
+    required int offset,
+    required int limit,
+  }) async {
+    final jsonString = prefs.getString('pokemon_list_${offset}_$limit');
+    if (jsonString != null) {
+      return json.decode(jsonString);
+    }
+    return null;
+  }
+
+  Future<void> _saveLocalPokemonList(Map<String, dynamic> data) async {
+    final offset = data['offset'] ?? 0;
+    final limit = data['results']?.length ?? 20;
+    final jsonString = json.encode(data);
+    await prefs.setString('pokemon_list_${offset}_$limit', jsonString);
+  }
+
+  Future<Map<String, dynamic>?> _getLocalPokemonDetail(String name) async {
+    final jsonString = prefs.getString('pokemon_detail_$name');
+    if (jsonString != null) {
+      return json.decode(jsonString);
+    }
+    return null;
+  }
+
+  Future<void> _saveLocalPokemonDetail(
+    String name,
+    Map<String, dynamic> data,
+  ) async {
+    final jsonString = json.encode(data);
+    await prefs.setString('pokemon_detail_$name', jsonString);
   }
 }

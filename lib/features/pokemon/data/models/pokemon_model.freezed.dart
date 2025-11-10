@@ -974,10 +974,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _PokemonTypeModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -1036,10 +1033,7 @@ return $default(_that.slot,_that.type);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int slot,  TypeInfoModel type)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonTypeModel():
-return $default(_that.slot,_that.type);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.slot,_that.type);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -1248,10 +1242,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _TypeInfoModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -1310,10 +1301,7 @@ return $default(_that.name);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name)  $default,) {final _that = this;
 switch (_that) {
 case _TypeInfoModel():
-return $default(_that.name);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.name);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -1521,10 +1509,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _PokemonStatModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -1583,10 +1568,7 @@ return $default(_that.baseStat,_that.stat);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'base_stat')  int baseStat,  StatInfoModel stat)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonStatModel():
-return $default(_that.baseStat,_that.stat);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.baseStat,_that.stat);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -1795,10 +1777,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _StatInfoModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -1857,10 +1836,7 @@ return $default(_that.name);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name)  $default,) {final _that = this;
 switch (_that) {
 case _StatInfoModel():
-return $default(_that.name);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.name);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -2071,10 +2047,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _PokemonSpritesModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -2133,10 +2106,7 @@ return $default(_that.frontDefault,_that.other);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'front_default')  String? frontDefault,  PokemonSpritesOtherModel? other)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonSpritesModel():
-return $default(_that.frontDefault,_that.other);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.frontDefault,_that.other);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -2360,10 +2330,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _PokemonSpritesOtherModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -2422,10 +2389,7 @@ return $default(_that.officialArtwork);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'official-artwork')  OfficialArtworkModel? officialArtwork)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonSpritesOtherModel():
-return $default(_that.officialArtwork);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.officialArtwork);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -2635,10 +2599,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _OfficialArtworkModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -2697,10 +2658,7 @@ return $default(_that.frontDefault);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'front_default')  String? frontDefault)  $default,) {final _that = this;
 switch (_that) {
 case _OfficialArtworkModel():
-return $default(_that.frontDefault);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.frontDefault);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///

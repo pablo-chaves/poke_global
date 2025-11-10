@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pokemon_list_provider.dart';
+part of 'favorites_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,45 +9,44 @@ part of 'pokemon_list_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(PokemonList)
-const pokemonListProvider = PokemonListProvider._();
+@ProviderFor(Favorites)
+const favoritesProvider = FavoritesProvider._();
 
-final class PokemonListProvider
-    extends $AsyncNotifierProvider<PokemonList, List<PokemonModel>> {
-  const PokemonListProvider._()
+final class FavoritesProvider
+    extends $AsyncNotifierProvider<Favorites, Set<String>> {
+  const FavoritesProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'pokemonListProvider',
+        name: r'favoritesProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$pokemonListHash();
+  String debugGetCreateSourceHash() => _$favoritesHash();
 
   @$internal
   @override
-  PokemonList create() => PokemonList();
+  Favorites create() => Favorites();
 }
 
-String _$pokemonListHash() => r'58278576079e93b2d441d29ff90fd37fcbcb28c5';
+String _$favoritesHash() => r'0d4b62720366155f198b040021d4916488c38083';
 
-abstract class _$PokemonList extends $AsyncNotifier<List<PokemonModel>> {
-  FutureOr<List<PokemonModel>> build();
+abstract class _$Favorites extends $AsyncNotifier<Set<String>> {
+  FutureOr<Set<String>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref =
-        this.ref as $Ref<AsyncValue<List<PokemonModel>>, List<PokemonModel>>;
+    final ref = this.ref as $Ref<AsyncValue<Set<String>>, Set<String>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<PokemonModel>>, List<PokemonModel>>,
-              AsyncValue<List<PokemonModel>>,
+              AnyNotifier<AsyncValue<Set<String>>, Set<String>>,
+              AsyncValue<Set<String>>,
               Object?,
               Object?
             >;

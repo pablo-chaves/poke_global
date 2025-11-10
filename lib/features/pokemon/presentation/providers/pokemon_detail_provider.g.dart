@@ -8,12 +8,9 @@ part of 'pokemon_detail_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Provider para obtener el detalle de un pokémon específico
 
 @ProviderFor(pokemonDetail)
 const pokemonDetailProvider = PokemonDetailFamily._();
-
-/// Provider para obtener el detalle de un pokémon específico
 
 final class PokemonDetailProvider
     extends
@@ -25,7 +22,6 @@ final class PokemonDetailProvider
     with
         $FutureModifier<PokemonDetailModel>,
         $FutureProvider<PokemonDetailModel> {
-  /// Provider para obtener el detalle de un pokémon específico
   const PokemonDetailProvider._({
     required PokemonDetailFamily super.from,
     required String super.argument,
@@ -70,9 +66,7 @@ final class PokemonDetailProvider
   }
 }
 
-String _$pokemonDetailHash() => r'3a6a150974a821fefc63cf21b621fa62da3ccbfa';
-
-/// Provider para obtener el detalle de un pokémon específico
+String _$pokemonDetailHash() => r'90b639874937fe0fec3bb4969fd7eef9822e9ae1';
 
 final class PokemonDetailFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<PokemonDetailModel>, String> {
@@ -84,8 +78,6 @@ final class PokemonDetailFamily extends $Family
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
-
-  /// Provider para obtener el detalle de un pokémon específico
 
   PokemonDetailProvider call(String name) =>
       PokemonDetailProvider._(argument: name, from: this);

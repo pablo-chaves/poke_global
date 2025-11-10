@@ -9,6 +9,6 @@ Future<PokemonDetailModel> pokemonDetail(
   Ref ref,
   String name,
 ) async {
-  final repository = ref.read(pokemonRepositoryProvider);
+  final repository = await ref.read(pokemonRepositoryProvider.future);
   return await repository.getPokemonDetail(name);
 }

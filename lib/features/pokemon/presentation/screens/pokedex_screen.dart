@@ -25,7 +25,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent * 0.9) {
       final notifier = ref.read(pokemonListProvider.notifier);
-      if (notifier.hasMore) {
+      if (notifier.hasMore && !notifier.isLoading) {
         notifier.loadMore();
       }
     }
