@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poke_global/core/constants/app_spacing.dart';
 import 'package:poke_global/core/widgets/error_view.dart';
 import 'package:poke_global/features/pokemon/presentation/providers/pokemon_list_provider.dart';
+import 'package:poke_global/features/pokemon/presentation/widgets/pokemon_card.dart';
 
 class PokedexScreen extends ConsumerStatefulWidget {
   const PokedexScreen({Key? key}) : super(key: key);
@@ -79,7 +80,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
             itemCount: pokemonList.length,
             itemBuilder: (context, index) {
               final pokemon = pokemonList[index];
-              return ListTile(title: Text(pokemon.name));
+              return PokemonCard(name: pokemon.name, url: pokemon.url);
             },
           );
         },

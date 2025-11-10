@@ -9,22 +9,22 @@ class AppColors {
   static const Color backgroundLight = Color(0xFFFEFEFE);
   static const Color surface = Color(0xFF9E9E9E);
   static const Color shadow = Color.fromRGBO(0, 0, 0, 0.2);
-  
+
   // Colores de texto
   static const Color textPrimary = Color(0xFF121212);
   static const Color textSecondary = Color(0xFF424242);
   static const Color textLight = Color(0xFF9E9E9E);
   static const Color textWhite = Color(0xFFFFFFFF);
-  
+
   // Colores de estado
   static const Color success = Color(0xFF4CAF50);
   static const Color error = Color(0xFFDC0A2D);
   static const Color warning = Color(0xFFFFA726);
   static const Color info = Color(0xFF29B6F6);
-  
+
   static const Map<String, Color> pokemonTypes = {
     'normal': Color(0xFFA8A878),
-    'fire': Color(0xFFF08030),
+    'fire': Color(0xFFFF9800),
     'water': Color(0xFF6890F0),
     'electric': Color(0xFFF8D030),
     'grass': Color(0xFF78C850),
@@ -42,16 +42,37 @@ class AppColors {
     'steel': Color(0xFFB8B8D0),
     'fairy': Color(0xFFEE99AC),
   };
-  
+
+  static Map<String, Color> pokemonLightTypes = {
+    // al 50 % del color original
+    'normal': Color(0x80A8A878),
+    'fire': Color(0x80FF9800),
+    'water': Color(0x806890F0),
+    'electric': Color(0x80F8D030),
+    'grass': Color(0x8078C850),
+    'ice': Color(0x8098D8D8),
+    'fighting': Color(0x80C03028),
+    'poison': Color(0x80A040A0),
+    'ground': Color(0x80E0C068),
+    'flying': Color(0x80A890F0),
+    'psychic': Color(0x80F85888),
+    'bug': Color(0x80A8B820),
+    'rock': Color(0x80B8A038),
+    'ghost': Color(0x80705898),
+    'dragon': Color(0x807038F8),
+    'dark': Color(0x80705848),
+    'steel': Color(0x80B8B8D0),
+    'fairy': Color(0x80EE99AC),
+  };
+
   static LinearGradient getTypeGradient(String type) {
-    final color = pokemonTypes[type.toLowerCase()] ?? pokemonTypes['normal']!;
+    final color =
+        pokemonLightTypes[type.toLowerCase()] ?? pokemonTypes['normal']!;
+    // el color tiene que ser mas claro
     return LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
-      colors: [
-        color,
-        color.withOpacity(0.7),
-      ],
+      colors: [color, color.withOpacity(0.7)],
     );
   }
 }

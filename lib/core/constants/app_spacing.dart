@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// Constantes de espaciado de la aplicación
 class AppSpacing {
-  AppSpacing._(); // Constructor privado
+  AppSpacing._();
 
   // Espaciados básicos
   static const double xs = 4.0;
