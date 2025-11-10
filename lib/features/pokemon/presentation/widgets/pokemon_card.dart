@@ -6,6 +6,7 @@ import 'package:poke_global/core/constants/app_assets.dart';
 import 'package:poke_global/core/constants/app_colors.dart';
 import 'package:poke_global/core/constants/app_spacing.dart';
 import 'package:poke_global/features/pokemon/presentation/providers/pokemon_detail_provider.dart';
+import 'package:poke_global/features/pokemon/presentation/widgets/type_chip.dart';
 
 class PokemonCard extends ConsumerStatefulWidget {
   final String name;
@@ -17,7 +18,8 @@ class PokemonCard extends ConsumerStatefulWidget {
   ConsumerState<PokemonCard> createState() => _PokemonCardState();
 }
 
-class _PokemonCardState extends ConsumerState<PokemonCard> with AutomaticKeepAliveClientMixin {
+class _PokemonCardState extends ConsumerState<PokemonCard>
+    with AutomaticKeepAliveClientMixin {
   late final String id;
   late final String imageUrl;
   late final bool isFavorite;
@@ -29,13 +31,14 @@ class _PokemonCardState extends ConsumerState<PokemonCard> with AutomaticKeepAli
   void initState() {
     super.initState();
     id = _extractIdFromUrl(widget.url);
-    imageUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';
+    imageUrl =
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';
 
     // final favoritesAsync = ref.watch(favoritesProvider);
     isFavorite = false; // favoritesAsync.value?.contains(name) ?? false;
   }
 
-    Widget _buildCard({
+  Widget _buildCard({
     required BuildContext context,
     required String id,
     required String imageUrl,
@@ -99,23 +102,7 @@ class _PokemonCardState extends ConsumerState<PokemonCard> with AutomaticKeepAli
                         Wrap(
                           spacing: AppSpacing.xs,
                           children: types.map((type) {
-                            return Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: backgroundDark,
-                                borderRadius: BorderRadius.all(
-                                  AppSpacing.radiusLG,
-                                ),
-                              ),
-                              child: Text(
-                                type.toUpperCase(),
-                                style: Theme.of(context).textTheme.titleSmall
-                                    ?.copyWith(color: AppColors.textWhite),
-                              ),
-                            );
+                            return TypeChip(type: type);
                           }).toList(),
                         )
                       else
@@ -213,7 +200,7 @@ class _PokemonCardState extends ConsumerState<PokemonCard> with AutomaticKeepAli
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    
+
     final pokemonDetailAsync = ref.watch(pokemonDetailProvider(widget.name));
     return pokemonDetailAsync.when(
       data: (detail) {
