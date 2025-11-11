@@ -11,6 +11,8 @@ class PokemonList extends _$PokemonList {
   List<PokemonModel> _allPokemon = [];
   bool _hasMore = true;
   bool _isLoading = false;
+  List<String> _selectedTypes = [];
+  String _searchQuery = '';
 
   @override
   Future<List<PokemonModel>> build() async {
@@ -18,11 +20,45 @@ class PokemonList extends _$PokemonList {
   }
 
   Future<List<PokemonModel>> searchPokemonByName(String name) async {
+    _searchQuery = name;
+    return _applyFilters();
+  }
+
+  Future<void> setTypeFilters(List<String> types) async {
+    _selectedTypes = types;
+    await _applyFilters();
+  }
+
+  Future<List<PokemonModel>> _applyFilters() async {
     final repository = await ref.read(pokemonRepositoryProvider.future);
     state = const AsyncValue.loading();
-    final result = await repository.searchPokemonByName(name);
-    state = AsyncValue.data(result);
+    
+    List<PokemonModel> result;
+    if (_searchQuery.isEmpty) {
+      final json = await repository.getPokemonList(offset: 0, limit: 1328);
+      result = json;
+    } else {
+      result = await repository.searchPokemonByName(_searchQuery);
+    }
 
+    if (_selectedTypes.isNotEmpty) {
+      final filteredResult = <PokemonModel>[];
+      for (final pokemon in result) {
+        try {
+          final detail = await repository.getPokemonDetail(pokemon.name);
+          final pokemonTypes = detail.types.map((t) => t.type.name).toList();
+          
+          if (_selectedTypes.any((type) => pokemonTypes.contains(type))) {
+            filteredResult.add(pokemon);
+          }
+        } catch (e) {
+          continue;
+        }
+      }
+      result = filteredResult;
+    }
+
+    state = AsyncValue.data(result);
     _allPokemon = result;
     _hasMore = false;
     return _allPokemon;
@@ -68,4 +104,5 @@ class PokemonList extends _$PokemonList {
 
   bool get hasMore => _hasMore;
   bool get isLoading => _isLoading;
+  List<String> get selectedTypes => _selectedTypes;
 }

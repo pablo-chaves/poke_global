@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:poke_global/core/constants/app_colors.dart';
+import 'package:poke_global/core/constants/app_spacing.dart';
 
 class SearchInput extends StatefulWidget {
   final Function(String)? onChanged;
   final VoidCallback? onSearchTap;
-  const SearchInput({super.key, this.onChanged, this.onSearchTap});
+  final VoidCallback? onFilterTap;
+  final bool hasActiveFilters;
+  
+  const SearchInput({
+    super.key,
+    this.onChanged,
+    this.onSearchTap,
+    this.onFilterTap,
+    this.hasActiveFilters = false,
+  });
 
   @override
   State<SearchInput> createState() => _SearchInputState();
@@ -87,6 +98,28 @@ class _SearchInputState extends State<SearchInput> {
             ),
           ),
         ),
+        if (widget.onFilterTap != null) ...[
+          AppSpacing.horizontalSpaceSM,
+          Container(
+            decoration: BoxDecoration(
+              color: widget.hasActiveFilters ? AppColors.primary : Colors.white,
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: widget.hasActiveFilters
+                    ? AppColors.primary
+                    : Colors.grey.shade300,
+                width: 2,
+              ),
+            ),
+            child: IconButton(
+              onPressed: widget.onFilterTap,
+              icon: Icon(
+                Icons.tune,
+                color: widget.hasActiveFilters ? Colors.white : Colors.grey.shade600,
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }

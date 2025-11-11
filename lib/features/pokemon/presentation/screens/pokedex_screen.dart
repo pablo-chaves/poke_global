@@ -7,6 +7,7 @@ import 'package:poke_global/core/widgets/error_view.dart';
 import 'package:poke_global/features/pokemon/presentation/providers/pokemon_list_provider.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/pokemon_card.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/search_input.dart';
+import 'package:poke_global/features/pokemon/presentation/widgets/filter_modal.dart';
 
 class PokedexScreen extends ConsumerStatefulWidget {
   const PokedexScreen({Key? key}) : super(key: key);
@@ -62,6 +63,22 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
     return segments[segments.length - 2];
   }
 
+  void _showFilterModal() {
+    final notifier = ref.read(pokemonListProvider.notifier);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => FilterModal(
+        selectedTypes: notifier.selectedTypes,
+        onApply: (types) {
+          notifier.setTypeFilters(types);
+        },
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -71,6 +88,8 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
   @override
   Widget build(BuildContext context) {
     final pokemonListAsync = ref.watch(pokemonListProvider);
+    final notifier = ref.read(pokemonListProvider.notifier);
+    final hasActiveFilters = notifier.selectedTypes.isNotEmpty;
 
     return Scaffold(
       body: SafeArea(
@@ -89,6 +108,8 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                         .read(pokemonListProvider.notifier)
                         .searchPokemonByName(value);
                   },
+                  onFilterTap: _showFilterModal,
+                  hasActiveFilters: hasActiveFilters,
                 ),
               ),
               AppSpacing.verticalSpaceSM,
