@@ -51,6 +51,7 @@ abstract class PokemonSpeciesModel with _$PokemonSpeciesModel {
     @JsonKey(name: 'flavor_text_entries')
     required List<FlavorTextModel> flavorTextEntries,
     required List<GeneraModel> genera,
+    @JsonKey(name: 'gender_rate') required int genderRate,
   }) = _PokemonSpeciesModel;
 
   factory PokemonSpeciesModel.fromJson(Map<String, dynamic> json) =>

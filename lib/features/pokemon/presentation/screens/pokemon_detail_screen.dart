@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:poke_global/core/constants/app_colors.dart';
 import 'package:poke_global/core/utils/pokemon_weaknesses.dart';
 import 'package:poke_global/features/pokemon/presentation/providers/pokemon_species_provider.dart';
+import 'package:poke_global/features/pokemon/presentation/widgets/gender_bar.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/pokemon_species.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/presentation_image.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/type_chip.dart';
@@ -163,6 +164,17 @@ class PokemonDetailScreen extends ConsumerWidget {
 
                         AppSpacing.verticalSpaceXL,
 
+                        pokemonSpeciesAsync.when(
+                          data: (pokemonSpecies) {
+                            return GenderBar(
+                              genderRate: pokemonSpecies.genderRate,
+                            );
+                          },
+                          loading: () => const SizedBox.shrink(),
+                          error: (error, stack) => const SizedBox.shrink(),
+                        ),
+                        AppSpacing.verticalSpaceXL,
+
                         // Estadísticas
                         Text(
                           'Debilidades',
@@ -172,9 +184,14 @@ class PokemonDetailScreen extends ConsumerWidget {
                         AppSpacing.verticalSpaceMD,
                         Wrap(
                           spacing: AppSpacing.xs,
-                          children: PokemonWeaknesses.getWeaknesses(pokemon.types.map((type) => type.type.name).toList()).map((weakness) {
-                          return TypeChip(type: weakness);
-                        }).toList(),
+                          children:
+                              PokemonWeaknesses.getWeaknesses(
+                                pokemon.types
+                                    .map((type) => type.type.name)
+                                    .toList(),
+                              ).map((weakness) {
+                                return TypeChip(type: weakness);
+                              }).toList(),
                         ),
                       ],
                     ),

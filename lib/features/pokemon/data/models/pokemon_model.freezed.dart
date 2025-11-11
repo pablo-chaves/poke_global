@@ -873,7 +873,7 @@ $PokemonSpritesModelCopyWith<$Res> get sprites {
 /// @nodoc
 mixin _$PokemonSpeciesModel {
 
- int get id; String get name;@JsonKey(name: 'flavor_text_entries') List<FlavorTextModel> get flavorTextEntries; List<GeneraModel> get genera;
+ int get id; String get name;@JsonKey(name: 'flavor_text_entries') List<FlavorTextModel> get flavorTextEntries; List<GeneraModel> get genera;@JsonKey(name: 'gender_rate') int get genderRate;
 /// Create a copy of PokemonSpeciesModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -886,16 +886,16 @@ $PokemonSpeciesModelCopyWith<PokemonSpeciesModel> get copyWith => _$PokemonSpeci
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PokemonSpeciesModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.flavorTextEntries, flavorTextEntries)&&const DeepCollectionEquality().equals(other.genera, genera));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PokemonSpeciesModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.flavorTextEntries, flavorTextEntries)&&const DeepCollectionEquality().equals(other.genera, genera)&&(identical(other.genderRate, genderRate) || other.genderRate == genderRate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(flavorTextEntries),const DeepCollectionEquality().hash(genera));
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(flavorTextEntries),const DeepCollectionEquality().hash(genera),genderRate);
 
 @override
 String toString() {
-  return 'PokemonSpeciesModel(id: $id, name: $name, flavorTextEntries: $flavorTextEntries, genera: $genera)';
+  return 'PokemonSpeciesModel(id: $id, name: $name, flavorTextEntries: $flavorTextEntries, genera: $genera, genderRate: $genderRate)';
 }
 
 
@@ -906,7 +906,7 @@ abstract mixin class $PokemonSpeciesModelCopyWith<$Res>  {
   factory $PokemonSpeciesModelCopyWith(PokemonSpeciesModel value, $Res Function(PokemonSpeciesModel) _then) = _$PokemonSpeciesModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String name,@JsonKey(name: 'flavor_text_entries') List<FlavorTextModel> flavorTextEntries, List<GeneraModel> genera
+ int id, String name,@JsonKey(name: 'flavor_text_entries') List<FlavorTextModel> flavorTextEntries, List<GeneraModel> genera,@JsonKey(name: 'gender_rate') int genderRate
 });
 
 
@@ -923,13 +923,14 @@ class _$PokemonSpeciesModelCopyWithImpl<$Res>
 
 /// Create a copy of PokemonSpeciesModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? flavorTextEntries = null,Object? genera = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? flavorTextEntries = null,Object? genera = null,Object? genderRate = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,flavorTextEntries: null == flavorTextEntries ? _self.flavorTextEntries : flavorTextEntries // ignore: cast_nullable_to_non_nullable
 as List<FlavorTextModel>,genera: null == genera ? _self.genera : genera // ignore: cast_nullable_to_non_nullable
-as List<GeneraModel>,
+as List<GeneraModel>,genderRate: null == genderRate ? _self.genderRate : genderRate // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -1014,10 +1015,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextModel> flavorTextEntries,  List<GeneraModel> genera)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextModel> flavorTextEntries,  List<GeneraModel> genera, @JsonKey(name: 'gender_rate')  int genderRate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PokemonSpeciesModel() when $default != null:
-return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera);case _:
+return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera,_that.genderRate);case _:
   return orElse();
 
 }
@@ -1035,10 +1036,10 @@ return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextModel> flavorTextEntries,  List<GeneraModel> genera)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextModel> flavorTextEntries,  List<GeneraModel> genera, @JsonKey(name: 'gender_rate')  int genderRate)  $default,) {final _that = this;
 switch (_that) {
 case _PokemonSpeciesModel():
-return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera);case _:
+return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera,_that.genderRate);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1055,10 +1056,10 @@ return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextModel> flavorTextEntries,  List<GeneraModel> genera)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name, @JsonKey(name: 'flavor_text_entries')  List<FlavorTextModel> flavorTextEntries,  List<GeneraModel> genera, @JsonKey(name: 'gender_rate')  int genderRate)?  $default,) {final _that = this;
 switch (_that) {
 case _PokemonSpeciesModel() when $default != null:
-return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera);case _:
+return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera,_that.genderRate);case _:
   return null;
 
 }
@@ -1070,7 +1071,7 @@ return $default(_that.id,_that.name,_that.flavorTextEntries,_that.genera);case _
 @JsonSerializable()
 
 class _PokemonSpeciesModel implements PokemonSpeciesModel {
-  const _PokemonSpeciesModel({required this.id, required this.name, @JsonKey(name: 'flavor_text_entries') required final  List<FlavorTextModel> flavorTextEntries, required final  List<GeneraModel> genera}): _flavorTextEntries = flavorTextEntries,_genera = genera;
+  const _PokemonSpeciesModel({required this.id, required this.name, @JsonKey(name: 'flavor_text_entries') required final  List<FlavorTextModel> flavorTextEntries, required final  List<GeneraModel> genera, @JsonKey(name: 'gender_rate') required this.genderRate}): _flavorTextEntries = flavorTextEntries,_genera = genera;
   factory _PokemonSpeciesModel.fromJson(Map<String, dynamic> json) => _$PokemonSpeciesModelFromJson(json);
 
 @override final  int id;
@@ -1089,6 +1090,7 @@ class _PokemonSpeciesModel implements PokemonSpeciesModel {
   return EqualUnmodifiableListView(_genera);
 }
 
+@override@JsonKey(name: 'gender_rate') final  int genderRate;
 
 /// Create a copy of PokemonSpeciesModel
 /// with the given fields replaced by the non-null parameter values.
@@ -1103,16 +1105,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PokemonSpeciesModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._flavorTextEntries, _flavorTextEntries)&&const DeepCollectionEquality().equals(other._genera, _genera));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PokemonSpeciesModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._flavorTextEntries, _flavorTextEntries)&&const DeepCollectionEquality().equals(other._genera, _genera)&&(identical(other.genderRate, genderRate) || other.genderRate == genderRate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_flavorTextEntries),const DeepCollectionEquality().hash(_genera));
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_flavorTextEntries),const DeepCollectionEquality().hash(_genera),genderRate);
 
 @override
 String toString() {
-  return 'PokemonSpeciesModel(id: $id, name: $name, flavorTextEntries: $flavorTextEntries, genera: $genera)';
+  return 'PokemonSpeciesModel(id: $id, name: $name, flavorTextEntries: $flavorTextEntries, genera: $genera, genderRate: $genderRate)';
 }
 
 
@@ -1123,7 +1125,7 @@ abstract mixin class _$PokemonSpeciesModelCopyWith<$Res> implements $PokemonSpec
   factory _$PokemonSpeciesModelCopyWith(_PokemonSpeciesModel value, $Res Function(_PokemonSpeciesModel) _then) = __$PokemonSpeciesModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name,@JsonKey(name: 'flavor_text_entries') List<FlavorTextModel> flavorTextEntries, List<GeneraModel> genera
+ int id, String name,@JsonKey(name: 'flavor_text_entries') List<FlavorTextModel> flavorTextEntries, List<GeneraModel> genera,@JsonKey(name: 'gender_rate') int genderRate
 });
 
 
@@ -1140,13 +1142,14 @@ class __$PokemonSpeciesModelCopyWithImpl<$Res>
 
 /// Create a copy of PokemonSpeciesModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? flavorTextEntries = null,Object? genera = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? flavorTextEntries = null,Object? genera = null,Object? genderRate = null,}) {
   return _then(_PokemonSpeciesModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,flavorTextEntries: null == flavorTextEntries ? _self._flavorTextEntries : flavorTextEntries // ignore: cast_nullable_to_non_nullable
 as List<FlavorTextModel>,genera: null == genera ? _self._genera : genera // ignore: cast_nullable_to_non_nullable
-as List<GeneraModel>,
+as List<GeneraModel>,genderRate: null == genderRate ? _self.genderRate : genderRate // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

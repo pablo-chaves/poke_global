@@ -66,6 +66,7 @@ _PokemonSpeciesModel _$PokemonSpeciesModelFromJson(Map<String, dynamic> json) =>
       genera: (json['genera'] as List<dynamic>)
           .map((e) => GeneraModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      genderRate: (json['gender_rate'] as num).toInt(),
     );
 
 Map<String, dynamic> _$PokemonSpeciesModelToJson(
@@ -75,6 +76,7 @@ Map<String, dynamic> _$PokemonSpeciesModelToJson(
   'name': instance.name,
   'flavor_text_entries': instance.flavorTextEntries,
   'genera': instance.genera,
+  'gender_rate': instance.genderRate,
 };
 
 _FlavorTextModel _$FlavorTextModelFromJson(Map<String, dynamic> json) =>
