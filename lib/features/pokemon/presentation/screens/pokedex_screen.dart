@@ -82,11 +82,16 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
             children: [
               AppSpacing.verticalSpaceMD,
               Padding(
-                padding: AppSpacing.paddingMD,
-                child: SearchInput(onChanged: (value) {
-                  ref.read(pokemonListProvider.notifier).searchPokemonByName(value);
-                }),
+                padding: AppSpacing.paddingHorizontalMD,
+                child: SearchInput(
+                  onChanged: (value) {
+                    ref
+                        .read(pokemonListProvider.notifier)
+                        .searchPokemonByName(value);
+                  },
+                ),
               ),
+              AppSpacing.verticalSpaceSM,
               Expanded(
                 child: pokemonListAsync.when(
                   data: (final pokemonList) {

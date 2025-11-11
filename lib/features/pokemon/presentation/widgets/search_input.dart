@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 
-class SearchInput extends StatelessWidget {
+class SearchInput extends StatefulWidget {
   final Function(String)? onChanged;
   final VoidCallback? onSearchTap;
   const SearchInput({super.key, this.onChanged, this.onSearchTap});
+
+  @override
+  State<SearchInput> createState() => _SearchInputState();
+}
+
+class _SearchInputState extends State<SearchInput> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +30,6 @@ class SearchInput extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            height: 48,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -21,58 +39,54 @@ class SearchInput extends StatelessWidget {
                 width: 2,
               ),
             ),
-            child: TextField(
-              onChanged: onChanged,
-              textAlignVertical: TextAlignVertical.center,
-              onSubmitted: (_) => FocusScope.of(context).unfocus(),
-              decoration: InputDecoration(
-                isDense: false,
-                contentPadding: EdgeInsets.all(11),
-                fillColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                filled: false,
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.grey.shade500,
-                ),
-                hintText: "Procurar Pokémon...",
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade400,
-                  fontSize: 16,
-                ),
-              ),
+            child: ValueListenableBuilder<TextEditingValue>(
+              valueListenable: _controller,
+              builder: (context, value, _) {
+                return TextField(
+                  controller: _controller,
+                  onChanged: (value) {
+                    widget.onChanged?.call(value);
+                  },
+                  textAlignVertical: TextAlignVertical.center,
+                  onSubmitted: (_) => FocusScope.of(context).unfocus(),
+                  decoration: InputDecoration(
+                    isDense: false,
+                    contentPadding: EdgeInsets.all(11),
+                    fillColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    filled: false,
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.grey.shade500,
+                    ),
+                    suffixIcon: value.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              _controller.clear();
+                              widget.onChanged?.call('');
+                            },
+                            icon: Icon(
+                              Icons.close_rounded,
+                              color: Colors.grey.shade500,
+                            ),
+                          )
+                        : null,
+                    hintText: "Procurar Pokémon...",
+                    hintStyle: TextStyle(
+                      color: Colors.grey.shade400,
+                      fontSize: 16,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),
-        // AppSpacing.horizontalSpaceMD,
-        // Container(
-        //   width: 48,
-        //   height: 48,
-        //   decoration: BoxDecoration(
-        //     color: Colors.white,
-        //     shape: BoxShape.circle,
-        //     border: Border.all(
-        //       color: Colors.grey.shade300,
-        //       width: 2,
-        //     ),
-        //   ),
-        //   child: IconButton(
-        //     splashRadius: 24,
-        //     onPressed: () {
-        //       FocusScope.of(context).unfocus();
-        //       onSearchTap?.call();
-        //     },
-        //     icon: Icon(
-        //       Icons.search,
-        //       color: Colors.grey.shade500,
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
