@@ -96,12 +96,10 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                 child: pokemonListAsync.when(
                   data: (final pokemonList) {
                     if (pokemonList.isEmpty) {
-                      return errorWidget(
-                        onRetry: () async {
-                          await ref
-                              .read(pokemonListProvider.notifier)
-                              .refresh();
-                        },
+                      return ErrorView(
+                        title: 'No hay resultados',
+                        message:
+                            'No se encontraron Pokémons con el nombre que ingresaste.',
                       );
                     }
 
