@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:poke_global/core/providers/shared_preferences_provider.dart';
 
 part 'user_name_provider.g.dart';
 
@@ -10,14 +10,14 @@ class UserName extends _$UserName {
   @override
   Future<String?> build() async {
     state = const AsyncValue.loading();
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = await ref.read(sharedPreferencesProvider.future);
     if (!ref.mounted) return null;
     return prefs.getString(_key);
   }
 
   Future<void> setName(String? name) async {
     state = const AsyncValue.loading();
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = await ref.read(sharedPreferencesProvider.future);
     if (!ref.mounted) return;
     if (name == null || name.isEmpty) {
       await prefs.remove(_key);

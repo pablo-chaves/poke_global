@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_name_provider.dart';
+part of 'onboarding_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,43 +9,45 @@ part of 'user_name_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(UserName)
-const userNameProvider = UserNameProvider._();
+@ProviderFor(OnboardingCompleted)
+const onboardingCompletedProvider = OnboardingCompletedProvider._();
 
-final class UserNameProvider extends $AsyncNotifierProvider<UserName, String?> {
-  const UserNameProvider._()
+final class OnboardingCompletedProvider
+    extends $AsyncNotifierProvider<OnboardingCompleted, bool> {
+  const OnboardingCompletedProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'userNameProvider',
+        name: r'onboardingCompletedProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$userNameHash();
+  String debugGetCreateSourceHash() => _$onboardingCompletedHash();
 
   @$internal
   @override
-  UserName create() => UserName();
+  OnboardingCompleted create() => OnboardingCompleted();
 }
 
-String _$userNameHash() => r'4f5e7f22a1b1525a542e8a19d0cb66a28338def7';
+String _$onboardingCompletedHash() =>
+    r'14c18e34c4de0c14fbbc96f29ae33759b64457f2';
 
-abstract class _$UserName extends $AsyncNotifier<String?> {
-  FutureOr<String?> build();
+abstract class _$OnboardingCompleted extends $AsyncNotifier<bool> {
+  FutureOr<bool> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<String?>, String?>;
+    final ref = this.ref as $Ref<AsyncValue<bool>, bool>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<String?>, String?>,
-              AsyncValue<String?>,
+              AnyNotifier<AsyncValue<bool>, bool>,
+              AsyncValue<bool>,
               Object?,
               Object?
             >;

@@ -10,44 +10,54 @@ import 'package:poke_global/features/regions/presentation/screens/regions_screen
 import 'route_names.dart';
 
 class AppRouter {
-  static final GoRouter router = GoRouter(
-    initialLocation: RouteNames.onboarding,
-    routes: [
-      GoRoute(
-        path: RouteNames.onboarding,
-        builder: (context, state) => const OnboardingScreen(),
-      ),
-      GoRoute(
-        path: RouteNames.askName,
-        builder: (context, state) => const AskNameScreen(),
-      ),
-      GoRoute(
-        path: RouteNames.home,
-        builder: (context, state) => const MainNavigation(),
-      ),
-      GoRoute(
-        path: RouteNames.pokedex,
-        builder: (context, state) => const PokedexScreen(),
-      ),
-      GoRoute(
-        path: RouteNames.regions,
-        builder: (context, state) => const RegionsScreen(),
-      ),
-      GoRoute(
-        path: RouteNames.favorites,
-        builder: (context, state) => const FavoritesScreen(),
-      ),
-      GoRoute(
-        path: RouteNames.profile,
-        builder: (context, state) => const ProfileScreen(),
-      ),
-      GoRoute(
-        path: RouteNames.pokemonDetail,
-        builder: (context, state) {
-          final pokemonName = state.extra as String;
-          return PokemonDetailScreen(pokemonName: pokemonName);
-        },
-      ),
-    ],
-  );
+  static GoRouter getRouter({required bool hasName}) {
+    return GoRouter(
+      initialLocation: hasName ? RouteNames.home : RouteNames.onboarding,
+      redirect: (context, state) {
+        final isOnOnboarding = state.matchedLocation == RouteNames.onboarding;
+        final isOnAskName = state.matchedLocation == RouteNames.askName;
+        if (hasName && (isOnOnboarding || isOnAskName)) {
+          return RouteNames.home;
+        }
+        return null;
+      },
+      routes: [
+        GoRoute(
+          path: RouteNames.onboarding,
+          builder: (context, state) => const OnboardingScreen(),
+        ),
+        GoRoute(
+          path: RouteNames.askName,
+          builder: (context, state) => const AskNameScreen(),
+        ),
+        GoRoute(
+          path: RouteNames.home,
+          builder: (context, state) => const MainNavigation(),
+        ),
+        GoRoute(
+          path: RouteNames.pokedex,
+          builder: (context, state) => const PokedexScreen(),
+        ),
+        GoRoute(
+          path: RouteNames.regions,
+          builder: (context, state) => const RegionsScreen(),
+        ),
+        GoRoute(
+          path: RouteNames.favorites,
+          builder: (context, state) => const FavoritesScreen(),
+        ),
+        GoRoute(
+          path: RouteNames.profile,
+          builder: (context, state) => const ProfileScreen(),
+        ),
+        GoRoute(
+          path: RouteNames.pokemonDetail,
+          builder: (context, state) {
+            final pokemonName = state.extra as String;
+            return PokemonDetailScreen(pokemonName: pokemonName);
+          },
+        ),
+      ],
+    );
+  }
 }

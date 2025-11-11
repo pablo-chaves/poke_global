@@ -30,7 +30,11 @@ class _AskNameScreenState extends ConsumerState<AskNameScreen> {
     await ref.read(userNameProvider.notifier).setName(name);
     if (mounted) {
       FocusScope.of(context).unfocus();
-      context.go(RouteNames.home);
+      if (context.canPop()) {
+        context.pop();
+      } else {
+        context.go(RouteNames.home);
+      }
     }
   }
 
