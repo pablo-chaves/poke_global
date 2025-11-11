@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poke_global/core/constants/app_spacing.dart';
@@ -66,8 +67,9 @@ class _AskNameScreenState extends ConsumerState<AskNameScreen> {
                   ),
                   child: TextField(
                     controller: _controller,
-                    textInputAction: TextInputAction.done,
                     onSubmitted: (_) => _save(),
+                    maxLength: 10,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     decoration: const InputDecoration(
                       fillColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -77,6 +79,7 @@ class _AskNameScreenState extends ConsumerState<AskNameScreen> {
                       focusedBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
                       hintText: 'Tu nombre',
+                      counterText: '',
                     ),
                   ),
                 ),

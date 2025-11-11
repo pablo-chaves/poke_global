@@ -15,8 +15,7 @@ class AppRouter {
       initialLocation: hasName ? RouteNames.home : RouteNames.onboarding,
       redirect: (context, state) {
         final isOnOnboarding = state.matchedLocation == RouteNames.onboarding;
-        final isOnAskName = state.matchedLocation == RouteNames.askName;
-        if (hasName && (isOnOnboarding || isOnAskName)) {
+        if (hasName && (isOnOnboarding)) {
           return RouteNames.home;
         }
         return null;
