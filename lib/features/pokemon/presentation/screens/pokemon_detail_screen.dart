@@ -69,7 +69,9 @@ class PokemonDetailScreen extends ConsumerWidget {
                   Stack(
                     children: [
                       PresentationImage(
-                        type: pokemon.types.first.type.name,
+                        type: pokemon.types.isNotEmpty
+                            ? pokemon.types.first.type.name
+                            : 'normal',
                         imageUrl:
                             pokemon
                                 .sprites
@@ -135,18 +137,25 @@ class PokemonDetailScreen extends ConsumerWidget {
                           children: [
                             pokemonSpeciesAsync.when(
                               data: (pokemonSpecies) {
-                                final category = pokemonSpecies.genera
-                                    .firstWhere(
-                                      (genera) => genera.language.name == 'es',
-                                    )
-                                    .genus;
+                                try {
+                                  final genera = pokemonSpecies.genera.firstWhere(
+                                    (genera) => genera.language.name == 'es',
+                                    orElse: () => pokemonSpecies.genera.firstWhere(
+                                      (genera) => genera.language.name == 'en',
+                                      orElse: () => pokemonSpecies.genera.first,
+                                    ),
+                                  );
+                                  final category = genera.genus;
 
-                                return _buildInfoCard(
-                                  context,
-                                  Icons.category_outlined,
-                                  'Categoria',
-                                  category.replaceAll('Pokémon ', ''),
-                                );
+                                  return _buildInfoCard(
+                                    context,
+                                    Icons.category_outlined,
+                                    'Categoria',
+                                    category.replaceAll('Pokémon ', ''),
+                                  );
+                                } catch (e) {
+                                  return const SizedBox.shrink();
+                                }
                               },
                               loading: () => const SizedBox.shrink(),
                               error: (error, stack) => const SizedBox.shrink(),
@@ -157,7 +166,9 @@ class PokemonDetailScreen extends ConsumerWidget {
                               context,
                               Icons.catching_pokemon,
                               'Habilidad',
-                              pokemon.abilities[0].ability.name,
+                              pokemon.abilities.isNotEmpty
+                                  ? pokemon.abilities[0].ability.name
+                                  : 'N/A',
                             ),
                           ],
                         ),
