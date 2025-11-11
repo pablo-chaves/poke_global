@@ -5,6 +5,7 @@ class RouteNames {
   // static const String splash = '/';
   static const String home = '/';
   static const String onboarding = '/onboarding';
+  static const String askName = '/ask-name';
   static const String pokedex = '/pokedex';
   static const String regions = '/regions';
   static const String pokemonDetail = '/pokemon-detail';

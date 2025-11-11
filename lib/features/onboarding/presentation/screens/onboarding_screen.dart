@@ -58,7 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 CustomButton(
                   text: 'Empecemos',
                   onPressed: () {
-                    context.go(RouteNames.home);
+                    context.go(RouteNames.askName);
                   },
                 ),
               AppSpacing.verticalSpaceXS,

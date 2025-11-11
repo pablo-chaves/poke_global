@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poke_global/core/constants/app_colors.dart';
 import 'package:poke_global/core/constants/app_spacing.dart';
 import 'package:poke_global/features/favorites/presentation/screens/favorites_screen.dart';
 import 'package:poke_global/features/pokemon/presentation/screens/pokedex_screen.dart';
 import 'package:poke_global/features/profile/presentation/screens/profile_screen.dart';
 import 'package:poke_global/features/regions/presentation/screens/regions_screen.dart';
+import 'package:poke_global/features/profile/presentation/providers/user_name_provider.dart';
 
 /// Widget principal con BottomNavigationBar
 class MainNavigation extends StatefulWidget {
@@ -49,31 +51,41 @@ class _MainNavigationState extends State<MainNavigation> {
             topLeft: AppSpacing.radiusLG,
             topRight: AppSpacing.radiusLG,
           ),
-          child: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
+          child: Consumer(
+            builder: (context, ref, _) {
+              final nameAsync = ref.watch(userNameProvider);
+              final profileLabel = nameAsync.maybeWhen(
+                data: (name) => (name != null && name.isNotEmpty) ? name : 'Perfil',
+                orElse: () => 'Perfil',
+              );
+
+              return BottomNavigationBar(
+                currentIndex: _currentIndex,
+                onTap: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                items: [
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.home, size: 26),
+                    label: 'Pokédex',
+                  ),
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.public, size: 26),
+                    label: 'Regiones',
+                  ),
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite, size: 26),
+                    label: 'Favoritos',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(Icons.person, size: 26),
+                    label: profileLabel,
+                  ),
+                ],
+              );
             },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home, size: 26),
-                label: 'Pokédex',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.public, size: 26),
-                label: 'Regiones',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite, size: 26),
-                label: 'Favoritos',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person, size: 26),
-                label: 'Perfil',
-              ),
-            ],
           ),
         ),
       ),
