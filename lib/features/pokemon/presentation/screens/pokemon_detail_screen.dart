@@ -214,7 +214,7 @@ class PokemonDetailScreen extends ConsumerWidget {
           SafeArea(
             child: favoritesAsync.when(
               data: (favorites) {
-                final isFavorite = favorites.contains(pokemonName);
+                final isFavorite = favorites.any((f) => f.name == pokemonName.toLowerCase());
                 return Padding(
                   padding: AppSpacing.paddingHorizontalMD,
                   child: Row(
@@ -230,17 +230,21 @@ class PokemonDetailScreen extends ConsumerWidget {
                         },
                       ),
                       const Spacer(),
-                      IconButton(
-                        icon: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? AppColors.favorite : AppColors.unfavorite,
-                          size: 28,
+                      pokemonDetailAsync.when(
+                        data: (pokemon) => IconButton(
+                          icon: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: isFavorite ? AppColors.favorite : AppColors.unfavorite,
+                            size: 28,
+                          ),
+                          onPressed: () {
+                            ref
+                                .read(favoritesProvider.notifier)
+                                .toggleFavorite(pokemon.id.toString(), pokemonName);
+                          },
                         ),
-                        onPressed: () {
-                          ref
-                              .read(favoritesProvider.notifier)
-                              .toggleFavorite(pokemonName);
-                        },
+                        loading: () => const SizedBox.shrink(),
+                        error: (_, __) => const SizedBox.shrink(),
                       ),
                     ],
                   ),

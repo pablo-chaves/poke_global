@@ -11,13 +11,13 @@ import 'package:poke_global/features/pokemon/presentation/widgets/type_chip.dart
 
 class PokemonCard extends ConsumerStatefulWidget {
   final String name;
-  final String url;
+  final String id;
   final Function()? onTap;
 
   const PokemonCard({
     super.key,
     required this.name,
-    required this.url,
+    required this.id,
     this.onTap,
   });
 
@@ -27,7 +27,6 @@ class PokemonCard extends ConsumerStatefulWidget {
 
 class _PokemonCardState extends ConsumerState<PokemonCard>
     with AutomaticKeepAliveClientMixin {
-  late final String id;
   late final String imageUrl;
   bool isFavorite = false;
 
@@ -37,9 +36,8 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
   @override
   void initState() {
     super.initState();
-    id = _extractIdFromUrl(widget.url);
     imageUrl =
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget.id}.png';
   }
 
   Widget _buildCard({
@@ -162,7 +160,7 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
                         onTap: () {
                           ref
                               .read(favoritesProvider.notifier)
-                              .toggleFavorite(widget.name);
+                              .toggleFavorite(widget.id, widget.name);
                         },
                         child: Container(
                           height: 32,
@@ -191,12 +189,6 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
     );
   }
 
-  String _extractIdFromUrl(String url) {
-    final uri = Uri.parse(url);
-    final segments = uri.pathSegments;
-    return segments[segments.length - 2];
-  }
-
   String _capitalize(String text) {
     if (text.isEmpty) return text;
     return text[0].toUpperCase() + text.substring(1);
@@ -209,7 +201,7 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
     final favoritesAsync = ref.watch(favoritesProvider);
     final pokemonDetailAsync = ref.watch(pokemonDetailProvider(widget.name));
 
-    isFavorite = favoritesAsync.value?.contains(widget.name) ?? false;
+    isFavorite = favoritesAsync.value?.any((f) => f.name == widget.name) ?? false;
 
     return pokemonDetailAsync.when(
       data: (detail) {
@@ -224,7 +216,7 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
 
         return _buildCard(
           context: context,
-          id: id,
+          id: widget.id,
           imageUrl: imageUrl,
           backgroundCard: backgroundCard,
           backgroundDark: backgroundDark,
@@ -235,14 +227,14 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
       },
       loading: () => _buildCard(
         context: context,
-        id: id,
+        id: widget.id,
         imageUrl: imageUrl,
         isFavorite: isFavorite,
         ref: ref,
       ),
       error: (_, __) => _buildCard(
         context: context,
-        id: id,
+        id: widget.id,
         imageUrl: imageUrl,
         isFavorite: isFavorite,
         ref: ref,

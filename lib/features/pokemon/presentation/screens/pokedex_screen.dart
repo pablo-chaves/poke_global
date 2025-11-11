@@ -55,6 +55,12 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
     ),
   );
 
+  String _extractIdFromUrl(String url) {
+    final uri = Uri.parse(url);
+    final segments = uri.pathSegments;
+    return segments[segments.length - 2];
+  }
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -82,12 +88,13 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
             itemCount: pokemonList.length,
             itemBuilder: (context, index) {
               final pokemon = pokemonList[index];
-              return PokemonCard(name: pokemon.name, url: pokemon.url, onTap: () {
-                context.push(
-                  RouteNames.pokemonDetail,
-                  extra: pokemon.name,
-                );
-              });
+              return PokemonCard(
+                name: pokemon.name,
+                id: _extractIdFromUrl(pokemon.url),
+                onTap: () {
+                  context.push(RouteNames.pokemonDetail, extra: pokemon.name);
+                },
+              );
             },
           );
         },

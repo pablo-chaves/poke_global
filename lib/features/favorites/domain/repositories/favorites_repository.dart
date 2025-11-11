@@ -1,7 +1,9 @@
-abstract class FavoritesRepository {
-  Future<Set<String>> getFavorites();
+import '../../data/models/favorite_pokemon_model.dart';
 
-  Future<void> addFavorite(String pokemonName);
+abstract class FavoritesRepository {
+  Future<List<FavoritePokemonModel>> getFavorites();
+
+  Future<void> addFavorite(String pokemonId, String pokemonName);
 
   Future<void> removeFavorite(String pokemonName);
 

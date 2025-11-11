@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:poke_global/features/favorites/data/models/favorite_pokemon_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritesLocalDataSource {
@@ -6,20 +8,35 @@ class FavoritesLocalDataSource {
 
   FavoritesLocalDataSource(this.prefs);
 
-  Future<Set<String>> getFavorites() async {
+  Future<List<FavoritePokemonModel>> getFavorites() async {
     try {
-      final favorites = prefs.getStringList(_favoritesKey) ?? [];
-      return favorites.toSet();
+      final favoritesJson = prefs.getString(_favoritesKey);
+      if (favoritesJson == null || favoritesJson.isEmpty) {
+        return [];
+      }
+      final List<dynamic> decoded = json.decode(favoritesJson);
+      return decoded.map((json) => FavoritePokemonModel.fromJson(json as Map<String, dynamic>)).toList();
     } catch (e) {
       throw Exception('Error al obtener favoritos: $e');
     }
   }
 
-  Future<void> addFavorite(String pokemonName) async {
+  Future<void> addFavorite(String pokemonId, String pokemonName) async {
     try {
       final favorites = await getFavorites();
-      favorites.add(pokemonName.toLowerCase());
-      await prefs.setStringList(_favoritesKey, favorites.toList());
+      final newFavorite = FavoritePokemonModel(
+        id: pokemonId,
+        name: pokemonName.toLowerCase(),
+      );
+      
+      // Evitar duplicados
+      if (!favorites.any((f) => f.name == newFavorite.name)) {
+        favorites.add(newFavorite);
+        final favoritesJson = json.encode(
+          favorites.map((f) => f.toJson()).toList(),
+        );
+        await prefs.setString(_favoritesKey, favoritesJson);
+      }
     } catch (e) {
       throw Exception('Error al agregar favorito: $e');
     }
@@ -28,8 +45,11 @@ class FavoritesLocalDataSource {
   Future<void> removeFavorite(String pokemonName) async {
     try {
       final favorites = await getFavorites();
-      favorites.remove(pokemonName.toLowerCase());
-      await prefs.setStringList(_favoritesKey, favorites.toList());
+      favorites.removeWhere((f) => f.name == pokemonName.toLowerCase());
+      final favoritesJson = json.encode(
+        favorites.map((f) => f.toJson()).toList(),
+      );
+      await prefs.setString(_favoritesKey, favoritesJson);
     } catch (e) {
       throw Exception('Error al remover favorito: $e');
     }
@@ -38,7 +58,7 @@ class FavoritesLocalDataSource {
   Future<bool> isFavorite(String pokemonName) async {
     try {
       final favorites = await getFavorites();
-      return favorites.contains(pokemonName.toLowerCase());
+      return favorites.any((f) => f.name == pokemonName.toLowerCase());
     } catch (e) {
       return false;
     }

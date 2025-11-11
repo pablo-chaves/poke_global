@@ -24,14 +24,7 @@ class PokemonDescription extends ConsumerWidget {
           style: Theme.of(context).textTheme.bodyMedium,
         );
       },
-      loading: () => SizedBox(
-        height: 18,
-        width: 18,
-        child: CircularProgressIndicator(
-          color: AppColors.textSecondary,
-          strokeWidth: 3,
-        ),
-      ),
+      loading: () => const SizedBox.shrink(),
       error: (_, __) => const SizedBox.shrink(),
     );
   }
