@@ -6,6 +6,7 @@ import 'package:poke_global/core/routes/route_names.dart';
 import 'package:poke_global/core/widgets/error_view.dart';
 import 'package:poke_global/features/pokemon/presentation/providers/pokemon_list_provider.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/pokemon_card.dart';
+import 'package:poke_global/features/pokemon/presentation/widgets/search_input.dart';
 
 class PokedexScreen extends ConsumerStatefulWidget {
   const PokedexScreen({Key? key}) : super(key: key);
@@ -72,42 +73,69 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
     final pokemonListAsync = ref.watch(pokemonListProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Pokédex')),
-      body: pokemonListAsync.when(
-        data: (final pokemonList) {
-          if (pokemonList.isEmpty) {
-            return errorWidget(
-              onRetry: () async {
-                await ref.read(pokemonListProvider.notifier).refresh();
-              },
-            );
-          }
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Column(
+            children: [
+              AppSpacing.verticalSpaceMD,
+              Padding(
+                padding: AppSpacing.paddingMD,
+                child: SearchInput(onChanged: (value) {
+                  ref.read(pokemonListProvider.notifier).searchPokemonByName(value);
+                }),
+              ),
+              Expanded(
+                child: pokemonListAsync.when(
+                  data: (final pokemonList) {
+                    if (pokemonList.isEmpty) {
+                      return errorWidget(
+                        onRetry: () async {
+                          await ref
+                              .read(pokemonListProvider.notifier)
+                              .refresh();
+                        },
+                      );
+                    }
 
-          return ListView.builder(
-            controller: _scrollController,
-            itemCount: pokemonList.length,
-            itemBuilder: (context, index) {
-              final pokemon = pokemonList[index];
-              return PokemonCard(
-                name: pokemon.name,
-                id: _extractIdFromUrl(pokemon.url),
-                onTap: () {
-                  context.push(RouteNames.pokemonDetail, extra: pokemon.name);
-                },
-              );
-            },
-          );
-        },
-        loading: () {
-          return const Center(child: CircularProgressIndicator());
-        },
-        error: (error, stackTrace) {
-          return errorWidget(
-            onRetry: () async {
-              await ref.read(pokemonListProvider.notifier).refresh();
-            },
-          );
-        },
+                    return ListView.builder(
+                      controller: _scrollController,
+                      itemCount: pokemonList.length,
+                      itemBuilder: (context, index) {
+                        final pokemon = pokemonList[index];
+                        final id = _extractIdFromUrl(pokemon.url);
+
+                        return PokemonCard(
+                          key: Key(id),
+                          name: pokemon.name,
+                          id: id,
+                          onTap: () {
+                            context.push(
+                              RouteNames.pokemonDetail,
+                              extra: pokemon.name,
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                  loading: () {
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                  error: (error, stackTrace) {
+                    return errorWidget(
+                      onRetry: () async {
+                        await ref.read(pokemonListProvider.notifier).refresh();
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -17,6 +17,17 @@ class PokemonList extends _$PokemonList {
     return _fetchPokemon();
   }
 
+  Future<List<PokemonModel>> searchPokemonByName(String name) async {
+    final repository = await ref.read(pokemonRepositoryProvider.future);
+    state = const AsyncValue.loading();
+    final result = await repository.searchPokemonByName(name);
+    state = AsyncValue.data(result);
+
+    _allPokemon = result;
+    _hasMore = false;
+    return _allPokemon;
+  }
+
   Future<List<PokemonModel>> _fetchPokemon() async {
     if (!_hasMore) return _allPokemon;
 

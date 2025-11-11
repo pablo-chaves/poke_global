@@ -33,6 +33,21 @@ class PokemonRemoteDataSource {
     }
   }
 
+  Future<Map<String, dynamic>> searchPokemonByName(String name) async {
+    try {
+      final response = await getPokemonList(offset: 0, limit: 1328);
+      final results = (response['results'] as List);
+      final query = name.toLowerCase();
+      final filtered = results.where((pokemon) {
+        final pname = (pokemon as Map<String, dynamic>)['name'] as String? ?? '';
+        return pname.toLowerCase().contains(query);
+      }).toList();
+      return {'count': filtered.length, 'results': filtered};
+    } catch (e) {
+      throw Exception('Error inesperado: $e');
+    }
+  }
+
   Future<Map<String, dynamic>> getPokemonDetail(String name) async {
     try {
       final localData = await _getLocalPokemonDetail(name);

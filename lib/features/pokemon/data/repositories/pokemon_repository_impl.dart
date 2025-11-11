@@ -31,6 +31,17 @@ class PokemonRepositoryImpl implements PokemonRepository {
   }
 
   @override
+  Future<List<PokemonModel>> searchPokemonByName(String name) async {
+    try {
+      final json = await dataSource.searchPokemonByName(name);
+      final listResponse = PokemonListResponse.fromJson(json);
+      return listResponse.results;
+    } catch (e) {
+      throw Exception('Error searching pokemon: $e');
+    }
+  }
+
+  @override
   Future<PokemonDetailModel> getPokemonDetail(String name) async {
     try {
       final json = await dataSource.getPokemonDetail(name);

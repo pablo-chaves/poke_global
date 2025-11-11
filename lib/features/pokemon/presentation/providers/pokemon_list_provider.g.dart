@@ -33,7 +33,7 @@ final class PokemonListProvider
   PokemonList create() => PokemonList();
 }
 
-String _$pokemonListHash() => r'58278576079e93b2d441d29ff90fd37fcbcb28c5';
+String _$pokemonListHash() => r'c92da702c1cdd77e0639932dfbf46f7a8a114337';
 
 abstract class _$PokemonList extends $AsyncNotifier<List<PokemonModel>> {
   FutureOr<List<PokemonModel>> build();

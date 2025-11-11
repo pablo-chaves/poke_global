@@ -7,6 +7,8 @@ abstract class PokemonRepository {
     int limit = 20,
   });
 
+  Future<List<PokemonModel>> searchPokemonByName(String name);
+
   Future<PokemonDetailModel> getPokemonDetail(String name);
 
   Future<PokemonSpeciesModel> getPokemonSpecies(String name);
