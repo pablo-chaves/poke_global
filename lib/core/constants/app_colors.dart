@@ -22,6 +22,10 @@ class AppColors {
   static const Color warning = Color(0xFFFFA726);
   static const Color info = Color(0xFF29B6F6);
 
+  // Colores de acciones
+  static const Color favorite = Color(0xFFE53935);
+  static const Color unfavorite = Color(0xFFFFFFFF);
+
   static const Map<String, Color> pokemonTypes = {
     'normal': Color(0xFFA8A878),
     'fire': Color(0xFFFF9800),

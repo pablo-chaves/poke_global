@@ -5,15 +5,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:poke_global/core/constants/app_assets.dart';
 import 'package:poke_global/core/constants/app_colors.dart';
 import 'package:poke_global/core/constants/app_spacing.dart';
+import 'package:poke_global/features/favorites/presentation/providers/favorites_provider.dart';
 import 'package:poke_global/features/pokemon/presentation/providers/pokemon_detail_provider.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/type_chip.dart';
 
 class PokemonCard extends ConsumerStatefulWidget {
   final String name;
   final String url;
-  final Function ()? onTap;
+  final Function()? onTap;
 
-  const PokemonCard({super.key, required this.name, required this.url, this.onTap});
+  const PokemonCard({
+    super.key,
+    required this.name,
+    required this.url,
+    this.onTap,
+  });
 
   @override
   ConsumerState<PokemonCard> createState() => _PokemonCardState();
@@ -23,7 +29,7 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
     with AutomaticKeepAliveClientMixin {
   late final String id;
   late final String imageUrl;
-  late final bool isFavorite;
+  bool isFavorite = false;
 
   @override
   bool get wantKeepAlive => true;
@@ -34,9 +40,6 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
     id = _extractIdFromUrl(widget.url);
     imageUrl =
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';
-
-    // final favoritesAsync = ref.watch(favoritesProvider);
-    isFavorite = false; // favoritesAsync.value?.contains(name) ?? false;
   }
 
   Widget _buildCard({
@@ -155,19 +158,26 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
                     Positioned(
                       top: 8,
                       right: 8,
-                      child: Container(
-                        height: 32,
-                        width: 32,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.2),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 1.5),
-                        ),
-                        child: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: Colors.white,
-                          size: 22,
+                      child: InkWell(
+                        onTap: () {
+                          ref
+                              .read(favoritesProvider.notifier)
+                              .toggleFavorite(widget.name);
+                        },
+                        child: Container(
+                          height: 32,
+                          width: 32,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.2),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 1.5),
+                          ),
+                          child: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: isFavorite ? AppColors.favorite : AppColors.unfavorite,
+                            size: 22,
+                          ),
                         ),
                       ),
                     ),
@@ -196,7 +206,11 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
   Widget build(BuildContext context) {
     super.build(context);
 
+    final favoritesAsync = ref.watch(favoritesProvider);
     final pokemonDetailAsync = ref.watch(pokemonDetailProvider(widget.name));
+
+    isFavorite = favoritesAsync.value?.contains(widget.name) ?? false;
+
     return pokemonDetailAsync.when(
       data: (detail) {
         final types = detail.types.map((t) => t.type.name).toList();

@@ -5,7 +5,7 @@ import 'package:poke_global/core/constants/app_colors.dart';
 import 'package:poke_global/core/utils/pokemon_weaknesses.dart';
 import 'package:poke_global/features/pokemon/presentation/providers/pokemon_species_provider.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/gender_bar.dart';
-import 'package:poke_global/features/pokemon/presentation/widgets/pokemon_species.dart';
+import 'package:poke_global/features/pokemon/presentation/widgets/pokemon_description.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/presentation_image.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/type_chip.dart';
 import '../../../../core/constants/app_spacing.dart';
@@ -190,7 +190,12 @@ class PokemonDetailScreen extends ConsumerWidget {
                                     .map((type) => type.type.name)
                                     .toList(),
                               ).map((weakness) {
-                                return TypeChip(type: weakness);
+                                return Column(
+                                  children: [
+                                    TypeChip(type: weakness),
+                                    AppSpacing.verticalSpaceXS,
+                                  ],
+                                );
                               }).toList(),
                         ),
                       ],
@@ -228,7 +233,7 @@ class PokemonDetailScreen extends ConsumerWidget {
                       IconButton(
                         icon: Icon(
                           isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : Colors.white,
+                          color: isFavorite ? AppColors.favorite : AppColors.unfavorite,
                           size: 28,
                         ),
                         onPressed: () {
