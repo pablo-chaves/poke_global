@@ -81,7 +81,8 @@ class _TypeChipState extends State<TypeChip> {
             names[widget.type] ?? widget.type,
             style: Theme.of(
               context,
-            ).textTheme.titleSmall?.copyWith(color: AppColors.textWhite),
+            ).textTheme.titleSmall?.copyWith(color: 
+            ['electric', 'ground'].contains(widget.type.toLowerCase()) ? AppColors.textPrimary : AppColors.textWhite),
           ),
         ],
       ),
