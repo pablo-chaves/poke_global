@@ -132,7 +132,7 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
                           height: 90,
                           width: 90,
                           fit: BoxFit.contain,
-                          color: Colors.white.withOpacity(0.2),
+                          color: Colors.white.withOpacity(0.3),
                         ),
                       ),
                     Center(
