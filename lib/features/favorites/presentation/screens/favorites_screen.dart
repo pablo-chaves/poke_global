@@ -8,7 +8,7 @@ import 'package:poke_global/features/favorites/presentation/providers/favorites_
 import 'package:poke_global/features/pokemon/presentation/widgets/pokemon_card.dart';
 
 class FavoritesScreen extends ConsumerWidget {
-  const FavoritesScreen({Key? key}) : super(key: key);
+  const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,16 +26,13 @@ class FavoritesScreen extends ConsumerWidget {
             );
           }
 
-          final favoritesList = favorites.toList()
-            ..sort((a, b) => int.parse(a.id).compareTo(int.parse(b.id)));
-
           return ListView.builder(
-            padding: AppSpacing.paddingHorizontalMD,
-            itemCount: favoritesList.length,
+            itemCount: favorites.length,
             itemBuilder: (context, index) {
-              final favorite = favoritesList[index];
+              final favorite = favorites[index];
               
               return PokemonCard(
+                key: Key(favorite.id),
                 name: favorite.name,
                 id: favorite.id,
                 onTap: () {
