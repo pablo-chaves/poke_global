@@ -39,6 +39,16 @@ class PokemonRepositoryImpl implements PokemonRepository {
       throw Exception('Error fetching pokemon detail: $e');
     }
   }
+  
+  @override
+  Future<PokemonSpeciesModel> getPokemonSpecies(String name) async {
+    try {
+      final json = await dataSource.getPokemonSpecies(name);
+      return PokemonSpeciesModel.fromJson(json);
+    } catch (e) {
+      throw Exception('Error fetching pokemon detail: $e');
+    }
+  }
 }
 
 @riverpod

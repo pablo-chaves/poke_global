@@ -11,8 +11,9 @@ import 'package:poke_global/features/pokemon/presentation/widgets/type_chip.dart
 class PokemonCard extends ConsumerStatefulWidget {
   final String name;
   final String url;
+  final Function ()? onTap;
 
-  const PokemonCard({super.key, required this.name, required this.url});
+  const PokemonCard({super.key, required this.name, required this.url, this.onTap});
 
   @override
   ConsumerState<PokemonCard> createState() => _PokemonCardState();
@@ -57,18 +58,12 @@ class _PokemonCardState extends ConsumerState<PokemonCard>
       ),
       child: InkWell(
         onTap: () {
-          // Navigator.pushNamed(
-          //   context,
-          //   RouteNames.pokemonDetail,
-          //   arguments: name,
-          // );
+          widget.onTap?.call();
         },
         borderRadius: BorderRadius.all(AppSpacing.radiusMD),
 
         child: Container(
           decoration: BoxDecoration(
-            // gradient: gradient,
-            // color: color,
             borderRadius: BorderRadius.all(AppSpacing.radiusMD),
           ),
           child: Row(

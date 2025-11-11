@@ -30,6 +30,9 @@ _PokemonDetailModel _$PokemonDetailModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       height: (json['height'] as num).toInt(),
       weight: (json['weight'] as num).toInt(),
+      abilities: (json['abilities'] as List<dynamic>)
+          .map((e) => PokemonAbilitiesModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       types: (json['types'] as List<dynamic>)
           .map((e) => PokemonTypeModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -47,10 +50,60 @@ Map<String, dynamic> _$PokemonDetailModelToJson(_PokemonDetailModel instance) =>
       'name': instance.name,
       'height': instance.height,
       'weight': instance.weight,
+      'abilities': instance.abilities,
       'types': instance.types,
       'stats': instance.stats,
       'sprites': instance.sprites,
     };
+
+_PokemonSpeciesModel _$PokemonSpeciesModelFromJson(Map<String, dynamic> json) =>
+    _PokemonSpeciesModel(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
+      flavorTextEntries: (json['flavor_text_entries'] as List<dynamic>)
+          .map((e) => FlavorTextModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      genera: (json['genera'] as List<dynamic>)
+          .map((e) => GeneraModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$PokemonSpeciesModelToJson(
+  _PokemonSpeciesModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'flavor_text_entries': instance.flavorTextEntries,
+  'genera': instance.genera,
+};
+
+_FlavorTextModel _$FlavorTextModelFromJson(Map<String, dynamic> json) =>
+    _FlavorTextModel(
+      language: LanguageModel.fromJson(
+        json['language'] as Map<String, dynamic>,
+      ),
+      flavorText: json['flavor_text'] as String,
+    );
+
+Map<String, dynamic> _$FlavorTextModelToJson(_FlavorTextModel instance) =>
+    <String, dynamic>{
+      'language': instance.language,
+      'flavor_text': instance.flavorText,
+    };
+
+_GeneraModel _$GeneraModelFromJson(Map<String, dynamic> json) => _GeneraModel(
+  genus: json['genus'] as String,
+  language: LanguageModel.fromJson(json['language'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$GeneraModelToJson(_GeneraModel instance) =>
+    <String, dynamic>{'genus': instance.genus, 'language': instance.language};
+
+_LanguageModel _$LanguageModelFromJson(Map<String, dynamic> json) =>
+    _LanguageModel(name: json['name'] as String);
+
+Map<String, dynamic> _$LanguageModelToJson(_LanguageModel instance) =>
+    <String, dynamic>{'name': instance.name};
 
 _PokemonTypeModel _$PokemonTypeModelFromJson(Map<String, dynamic> json) =>
     _PokemonTypeModel(
@@ -60,6 +113,22 @@ _PokemonTypeModel _$PokemonTypeModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PokemonTypeModelToJson(_PokemonTypeModel instance) =>
     <String, dynamic>{'slot': instance.slot, 'type': instance.type};
+
+_PokemonAbilitiesModel _$PokemonAbilitiesModelFromJson(
+  Map<String, dynamic> json,
+) => _PokemonAbilitiesModel(
+  ability: AbilityModel.fromJson(json['ability'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$PokemonAbilitiesModelToJson(
+  _PokemonAbilitiesModel instance,
+) => <String, dynamic>{'ability': instance.ability};
+
+_AbilityModel _$AbilityModelFromJson(Map<String, dynamic> json) =>
+    _AbilityModel(name: json['name'] as String);
+
+Map<String, dynamic> _$AbilityModelToJson(_AbilityModel instance) =>
+    <String, dynamic>{'name': instance.name};
 
 _TypeInfoModel _$TypeInfoModelFromJson(Map<String, dynamic> json) =>
     _TypeInfoModel(name: json['name'] as String);

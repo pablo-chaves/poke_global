@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:poke_global/core/constants/app_spacing.dart';
+import 'package:poke_global/core/routes/route_names.dart';
 import 'package:poke_global/core/widgets/error_view.dart';
 import 'package:poke_global/features/pokemon/presentation/providers/pokemon_list_provider.dart';
 import 'package:poke_global/features/pokemon/presentation/widgets/pokemon_card.dart';
@@ -80,7 +82,12 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
             itemCount: pokemonList.length,
             itemBuilder: (context, index) {
               final pokemon = pokemonList[index];
-              return PokemonCard(name: pokemon.name, url: pokemon.url);
+              return PokemonCard(name: pokemon.name, url: pokemon.url, onTap: () {
+                context.push(
+                  RouteNames.pokemonDetail,
+                  extra: pokemon.name,
+                );
+              });
             },
           );
         },

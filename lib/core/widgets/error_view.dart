@@ -16,33 +16,36 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset('assets/images/error.png', height: 260, fit: BoxFit.cover),
-        AppSpacing.verticalSpaceLG,
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        AppSpacing.verticalSpaceMD,
-        Text(
-          message,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        if (onRetry != null) ...[
-          AppSpacing.verticalSpaceXL,
-          CustomButton(
-            text: 'Reintentar',
-            onPressed: () {
-              onRetry?.call();
-            },
+    return Padding(
+      padding: AppSpacing.paddingHorizontalMD,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/error.png', height: 260, fit: BoxFit.cover),
+          AppSpacing.verticalSpaceLG,
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
+          AppSpacing.verticalSpaceMD,
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          if (onRetry != null) ...[
+            AppSpacing.verticalSpaceXL,
+            CustomButton(
+              text: 'Reintentar',
+              onPressed: () {
+                onRetry?.call();
+              },
+            ),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

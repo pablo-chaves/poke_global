@@ -3,6 +3,7 @@ import 'package:poke_global/core/widgets/main_navigation.dart';
 import 'package:poke_global/features/favorites/presentation/screens/favorites_screen.dart';
 import 'package:poke_global/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:poke_global/features/pokemon/presentation/screens/pokedex_screen.dart';
+import 'package:poke_global/features/pokemon/presentation/screens/pokemon_detail_screen.dart';
 import 'package:poke_global/features/profile/presentation/screens/profile_screen.dart';
 import 'package:poke_global/features/regions/presentation/screens/regions_screen.dart';
 import 'route_names.dart';
@@ -39,13 +40,13 @@ class AppRouter {
         path: RouteNames.profile,
         builder: (context, state) => const ProfileScreen(),
       ),
-      // GoRoute(
-      //   path: RouteNames.pokemonDetail,
-      //   builder: (context, state) {
-      //     final pokemonName = state.extra as String;
-      //     return PokemonDetailScreen(pokemonName: pokemonName);
-      //   },
-      // ),
+      GoRoute(
+        path: RouteNames.pokemonDetail,
+        builder: (context, state) {
+          final pokemonName = state.extra as String;
+          return PokemonDetailScreen(pokemonName: pokemonName);
+        },
+      ),
     ],
   );
 }
