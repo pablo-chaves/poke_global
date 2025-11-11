@@ -12,4 +12,6 @@ abstract class PokemonRepository {
   Future<PokemonDetailModel> getPokemonDetail(String name);
 
   Future<PokemonSpeciesModel> getPokemonSpecies(String name);
+
+  Future<List<PokemonModel>> getPokemonByType(String type);
 }

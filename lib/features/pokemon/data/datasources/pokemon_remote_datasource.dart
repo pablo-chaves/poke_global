@@ -80,6 +80,20 @@ class PokemonRemoteDataSource {
     }
   }
 
+  Future<Map<String, dynamic>> getPokemonByType(String type) async {
+    try {
+      final localData = await _getLocalPokemonByType(type);
+      if (localData != null) return localData;
+
+      final response = await dio.get('type/$type');
+
+      _saveLocalPokemonByType(type, response.data);
+      return response.data as Map<String, dynamic>;
+    } catch (e) {
+      throw Exception('Error inesperado: $e');
+    }
+  }
+
   Future<Map<String, dynamic>?> _getLocalPokemonList({
     required int offset,
     required int limit,
@@ -128,5 +142,21 @@ class PokemonRemoteDataSource {
   ) async {
     final jsonString = json.encode(data);
     await prefs.setString('pokemon_description_$name', jsonString);
+  }
+
+  Future<Map<String, dynamic>?> _getLocalPokemonByType(String type) async {
+    final jsonString = prefs.getString('pokemon_type_$type');
+    if (jsonString != null) {
+      return json.decode(jsonString);
+    }
+    return null;
+  }
+
+  Future<void> _saveLocalPokemonByType(
+    String type,
+    Map<String, dynamic> data,
+  ) async {
+    final jsonString = json.encode(data);
+    await prefs.setString('pokemon_type_$type', jsonString);
   }
 }

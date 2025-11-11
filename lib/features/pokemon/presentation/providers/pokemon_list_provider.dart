@@ -34,28 +34,35 @@ class PokemonList extends _$PokemonList {
     state = const AsyncValue.loading();
     
     List<PokemonModel> result;
-    if (_searchQuery.isEmpty) {
-      final json = await repository.getPokemonList(offset: 0, limit: 1328);
-      result = json;
-    } else {
-      result = await repository.searchPokemonByName(_searchQuery);
-    }
 
     if (_selectedTypes.isNotEmpty) {
-      final filteredResult = <PokemonModel>[];
-      for (final pokemon in result) {
+      final allTypePokemon = <String, PokemonModel>{};
+      
+      for (final type in _selectedTypes) {
         try {
-          final detail = await repository.getPokemonDetail(pokemon.name);
-          final pokemonTypes = detail.types.map((t) => t.type.name).toList();
-          
-          if (_selectedTypes.any((type) => pokemonTypes.contains(type))) {
-            filteredResult.add(pokemon);
+          final typePokemon = await repository.getPokemonByType(type);
+          for (final pokemon in typePokemon) {
+            allTypePokemon[pokemon.name] = pokemon;
           }
         } catch (e) {
           continue;
         }
       }
-      result = filteredResult;
+      
+      result = allTypePokemon.values.toList();
+      
+      if (_searchQuery.isNotEmpty) {
+        final query = _searchQuery.toLowerCase();
+        result = result.where((pokemon) {
+          return pokemon.name.toLowerCase().contains(query);
+        }).toList();
+      }
+    } else {
+      if (_searchQuery.isEmpty) {
+        result = await repository.getPokemonList(offset: 0, limit: 1328);
+      } else {
+        result = await repository.searchPokemonByName(_searchQuery);
+      }
     }
 
     state = AsyncValue.data(result);
